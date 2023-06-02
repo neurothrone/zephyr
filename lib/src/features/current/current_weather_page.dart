@@ -2,15 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../core/constants.dart';
-import '../../core/palette.dart';
 import '../../services/weather.dart';
 import '../../services/weather_service.dart';
 import 'current_weather_display.dart';
-
-enum WeatherLocationType {
-  current,
-  custom,
-}
+import 'weather_location_type.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({Key? key}) : super(key: key);
@@ -34,18 +29,15 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SegmentedButton<WeatherLocationType>(
-            segments: const [
-              ButtonSegment(
-                value: WeatherLocationType.current,
-                label: Text("Current"),
-                icon: Icon(Icons.home_rounded),
-              ),
-              ButtonSegment(
-                value: WeatherLocationType.custom,
-                label: Text("Custom"),
-                icon: Icon(Icons.pin_drop_rounded),
-              ),
-            ],
+            segments: WeatherLocationType.values
+                .map(
+                  (type) => ButtonSegment(
+                    value: type,
+                    label: Text(type.label),
+                    icon: Icon(type.icon),
+                  ),
+                )
+                .toList(),
             selected: <WeatherLocationType>{_locationType},
             onSelectionChanged: _isLoading
                 ? null
