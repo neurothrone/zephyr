@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants.dart';
+
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
@@ -7,7 +9,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(kPadding20),
       child: SizedBox(
         width: double.infinity,
         child: Column(
@@ -20,7 +22,7 @@ class AboutPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: kPadding20),
             SizedBox(
               width: mediaQuery.orientation == Orientation.portrait
                   ? mediaQuery.size.width
@@ -30,7 +32,7 @@ class AboutPage extends StatelessWidget {
                 "Linneaus University using Flutter and the OpenWeatherMap API.",
               ),
             ),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: kPadding10),
             const Text("Developed by Zaid Neurothrone"),
           ],
         ),
