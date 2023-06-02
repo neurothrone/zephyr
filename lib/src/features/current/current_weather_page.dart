@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../core/constants.dart';
-import '../../core/palette.dart';
 import '../../services/weather.dart';
 import '../../services/weather_service.dart';
-import '../../utils/datetime_extensions.dart';
-import '../../utils/string_extensions.dart';
+import 'current_weather_display.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({Key? key}) : super(key: key);
@@ -23,14 +22,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Palette.lightOrange,
-            ),
-          )
+        ? const CustomCircularProgressIndicator()
         : SingleChildScrollView(
             padding: const EdgeInsets.all(kPadding20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ElevatedButton(
@@ -66,36 +62,5 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
     }
 
     setState(() => _isLoading = false);
-  }
-}
-
-class CurrentWeatherDisplay extends StatelessWidget {
-  const CurrentWeatherDisplay({
-    Key? key,
-    required this.weather,
-  }) : super(key: key);
-
-  final Weather weather;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Icon(
-          Icons.sunny,
-          color: Palette.lightOrange,
-        ),
-        Text("${weather.city}, ${weather.country}"),
-        Text(weather.createdAt.formatted),
-        Text(weather.description.capitalized),
-        Text(
-          "${weather.temperature.toInt()} °C",
-          style: const TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
-    );
   }
 }
