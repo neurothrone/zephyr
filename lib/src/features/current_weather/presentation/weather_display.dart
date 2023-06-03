@@ -14,6 +14,8 @@ class WeatherDisplay extends StatelessWidget {
 
   final LocationWeather weather;
 
+  String get iconPath => "assets/images/${weather.icon}@2x.png";
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -29,11 +31,7 @@ class WeatherDisplay extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.sunny,
-                  color: Palette.lightOrange,
-                  size: 40.0,
-                ),
+                Image.asset(iconPath),
                 const SizedBox(height: 10.0),
                 Text(
                   "${weather.temperature} °C",
