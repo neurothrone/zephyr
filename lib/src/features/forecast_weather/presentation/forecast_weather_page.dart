@@ -49,8 +49,8 @@ class _ForecastWeatherPageState extends State<ForecastWeatherPage> {
     setState(() => _isLoading = true);
 
     final forecastWeather = await _weatherService.getForecastWeather(
-      55.61234260391604,
-      12.980266915343263,
+      latitude: 55.61234260391604,
+      longitude: 12.980266915343263,
     );
 
     if (forecastWeather.isNotEmpty) {

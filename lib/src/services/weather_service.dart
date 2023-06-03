@@ -20,10 +20,10 @@ class WeatherService {
 
   late final String _apiKey;
 
-  Future<http.Response> _requestCurrentWeather(
-    double latitude,
-    double longitude,
-  ) async {
+  Future<http.Response> _requestCurrentWeather({
+    required double latitude,
+    required double longitude,
+  }) async {
     final response = await http.get(
       Uri.parse(
         "$_baseUrl/weather?"
@@ -36,10 +36,10 @@ class WeatherService {
     return response;
   }
 
-  Future<http.Response> _requestForecastWeather(
-    double latitude,
-    double longitude,
-  ) async {
+  Future<http.Response> _requestForecastWeather({
+    required double latitude,
+    required double longitude,
+  }) async {
     final response = await http.get(
       Uri.parse(
         "$_baseUrl/forecast?"
@@ -52,13 +52,13 @@ class WeatherService {
     return response;
   }
 
-  Future<LocationWeather?> getCurrentWeather(
-    double latitude,
-    double longitude,
-  ) async {
+  Future<LocationWeather?> getCurrentWeather({
+    required double latitude,
+    required double longitude,
+  }) async {
     final response = await _requestCurrentWeather(
-      latitude,
-      longitude,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     if (response.statusCode == 200) {
@@ -70,13 +70,13 @@ class WeatherService {
     }
   }
 
-  Future<List<WeatherForecast>> getForecastWeather(
-    double latitude,
-    double longitude,
-  ) async {
+  Future<List<WeatherForecast>> getForecastWeather({
+    required double latitude,
+    required double longitude,
+  }) async {
     final response = await _requestForecastWeather(
-      latitude,
-      longitude,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     if (response.statusCode == 200) {

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
-
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../core/constants.dart';
 import '../../../services/weather_service.dart';
@@ -40,34 +37,14 @@ class _CustomLocationWeatherState extends State<CustomLocationWeather> {
     );
   }
 
-  Future<Position?> _getCurrentLocation() async {
-    PermissionStatus permissionStatus = await Permission.location.request();
-
-    if (permissionStatus.isGranted) {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
-      return position;
-    } else {
-      return null;
-    }
-  }
-
   Future<void> _getCurrentWeather() async {
     _myLocationWeather = null;
 
     setState(() => _isLoading = true);
 
-    final position = await _getCurrentLocation();
-
-    if (position == null) {
-      setState(() => _isLoading = false);
-      return;
-    }
-
     final weather = await _weatherService.getCurrentWeather(
-      position.latitude,
-      position.longitude,
+      latitude: 55.61234260391604,
+      longitude: 12.980266915343263,
     );
 
     if (weather != null) {
