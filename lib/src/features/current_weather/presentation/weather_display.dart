@@ -36,7 +36,7 @@ class WeatherDisplay extends StatelessWidget {
                 Text(
                   "${weather.temperature} °C",
                   style: const TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -48,9 +48,13 @@ class WeatherDisplay extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text("${weather.city}, ${weather.country}"),
-                  Text(weather.datetime.formattedShort),
+                  Text(
+                    "${weather.city}, ${weather.country}",
+                    style: const TextStyle(fontSize: 20.0),
+                  ),
                   Text(weather.description.capitalized),
+                  const SizedBox(height: 20.0),
+                  Text(weather.datetime.formattedShort),
                 ],
               ),
             ),
