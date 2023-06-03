@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../core/constants.dart';
+import '../../../core/palette.dart';
 import '../../../services/weather_service.dart';
 import '../data/location_weather.dart';
 import 'weather_display.dart';
@@ -21,7 +22,22 @@ class _CustomLocationWeatherState extends State<CustomLocationWeather> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Form(
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Latitude"),
+              ),
+              const SizedBox(height: kPadding20),
+              TextFormField(
+                decoration: const InputDecoration(labelText: "Longitude"),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: kPadding20),
         ElevatedButton(
           onPressed: _isLoading ? null : _getCurrentWeather,
           child: const Text("Get Custom Weather"),
