@@ -28,10 +28,12 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
           child: const Text("Get Current Weather"),
         ),
         const SizedBox(height: kPadding20),
-        if (_isLoading)
+        if (_isLoading) ...[
           const CustomCircularProgressIndicator()
-        else if (_myLocationWeather != null)
-          WeatherDisplay(weather: _myLocationWeather!)
+        ] else ...[
+          if (_myLocationWeather != null)
+            WeatherDisplay(weather: _myLocationWeather!)
+        ],
       ],
     );
   }
