@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/datetime_extensions.dart';
 import '../../../utils/string_extensions.dart';
-import '../data/forecast_weather.dart';
+import '../domain/forecast_weather.dart';
 
 class WeatherForecastRow extends StatelessWidget {
   const WeatherForecastRow({

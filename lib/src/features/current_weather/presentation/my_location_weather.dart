@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../core/constants.dart';
 import '../../../services/weather_service.dart';
-import '../data/location_weather.dart';
+import '../domain/location_weather.dart';
 import 'weather_display.dart';
 
 class MyLocationWeather extends StatefulWidget {

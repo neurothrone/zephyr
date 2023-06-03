@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants.dart';
-import '../data/location_weather_type.dart';
+import '../domain/location_weather_type.dart';
 import 'custom_location_weather.dart';
 import 'my_location_weather.dart';
 

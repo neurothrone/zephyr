@@ -4,7 +4,7 @@ import '../../../core/constants.dart';
 import '../../../core/palette.dart';
 import '../../../utils/datetime_extensions.dart';
 import '../../../utils/string_extensions.dart';
-import '../data/location_weather.dart';
+import '../domain/location_weather.dart';
 
 class WeatherDisplay extends StatelessWidget {
   const WeatherDisplay({

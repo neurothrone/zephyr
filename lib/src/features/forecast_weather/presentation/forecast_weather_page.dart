@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../core/constants.dart';
 import '../../../services/weather_service.dart';
-import '../data/forecast_weather.dart';
+import '../domain/forecast_weather.dart';
 import 'weather_forecast_row.dart';
 
 class ForecastWeatherPage extends StatefulWidget {

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import '../features/current_weather/data/location_weather.dart';
-import '../features/forecast_weather/data/forecast_weather.dart';
+import '../features/current_weather/domain/location_weather.dart';
+import '../features/forecast_weather/domain/forecast_weather.dart';
 
 const _baseUrl = "https://api.openweathermap.org/data/2.5";
 
