@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-import 'weather.dart';
+import '../features/current_weather/data/location_weather.dart';
+import '../features/forecast_weather/data/forecast_weather.dart';
 
 const _baseUrl = "https://api.openweathermap.org/data/2.5";
 
@@ -51,7 +52,7 @@ class WeatherService {
     return response;
   }
 
-  Future<Weather?> getCurrentWeather(
+  Future<LocationWeather?> getCurrentWeather(
     double latitude,
     double longitude,
   ) async {
@@ -62,10 +63,32 @@ class WeatherService {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      final weather = Weather.fromJson(json);
+      final weather = LocationWeather.fromJson(json);
       return weather;
     } else {
       return null;
+    }
+  }
+
+  Future<List<WeatherForecast>> getForecastWeather(
+    double latitude,
+    double longitude,
+  ) async {
+    final response = await _requestForecastWeather(
+      latitude,
+      longitude,
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> decodedResponse = jsonDecode(response.body);
+
+      List<WeatherForecast> forecastList = (decodedResponse["list"] as List)
+          .map((json) => WeatherForecast.fromJson(json))
+          .toList();
+
+      return forecastList;
+    } else {
+      return [];
     }
   }
 }
