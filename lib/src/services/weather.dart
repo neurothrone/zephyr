@@ -13,7 +13,7 @@ class Weather {
       latitude: json["coord"]["lat"],
       longitude: json["coord"]["lon"],
       description: json["weather"][0]["description"],
-      temperature: json["main"]["temp"],
+      temperature: (json["main"]["temp"] as num).toInt(),
       city: json["name"],
       country: json["sys"]["country"],
     );
