@@ -6,6 +6,7 @@ class Weather {
     required this.temperature,
     required this.city,
     required this.country,
+    required this.datetime,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class Weather {
       temperature: (json["main"]["temp"] as num).toInt(),
       city: json["name"],
       country: json["sys"]["country"],
+      datetime: DateTime.fromMillisecondsSinceEpoch(json["dt"] * 1000),
     );
   }
 
@@ -25,5 +27,5 @@ class Weather {
   final int temperature;
   final String city;
   final String country;
-  final DateTime createdAt = DateTime.now();
+  final DateTime datetime;
 }
