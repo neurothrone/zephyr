@@ -22,7 +22,7 @@ class Weather {
   final double latitude;
   final double longitude;
   final String description;
-  final double temperature;
+  final int temperature;
   final String city;
   final String country;
   final DateTime createdAt = DateTime.now();

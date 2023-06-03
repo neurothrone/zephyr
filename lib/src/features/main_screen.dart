@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../utils/string_extensions.dart';
 import 'app_tab.dart';
 import 'about/about_page.dart';
-import 'current/current_weather_page.dart';
-import 'forecast/forecast_weather_page.dart';
+import 'current_weather/current_weather_page.dart';
+import 'forecast_weather/forecast_weather_page.dart';
 
 const List<Widget> _pages = [
   CurrentWeatherPage(),
