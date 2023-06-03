@@ -15,9 +15,8 @@ class MyLocationWeather extends StatefulWidget {
 
 class _MyLocationWeatherState extends State<MyLocationWeather> {
   final _weatherService = WeatherService();
-  bool _isLoading = false;
-
   LocationWeather? _myLocationWeather;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
