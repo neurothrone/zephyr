@@ -51,7 +51,7 @@ class WeatherDisplay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text("${weather.city}, ${weather.country}"),
-                  Text(weather.createdAt.formatted),
+                  Text(weather.datetime.formattedShort),
                   Text(weather.description.capitalized),
                 ],
               ),
