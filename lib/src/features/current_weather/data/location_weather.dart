@@ -1,5 +1,5 @@
-class Weather {
-  Weather({
+class LocationWeather {
+  LocationWeather({
     required this.latitude,
     required this.longitude,
     required this.description,
@@ -9,8 +9,8 @@ class Weather {
     required this.datetime,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) {
-    return Weather(
+  factory LocationWeather.fromJson(Map<String, dynamic> json) {
+    return LocationWeather(
       latitude: json["coord"]["lat"],
       longitude: json["coord"]["lon"],
       description: json["weather"][0]["description"],

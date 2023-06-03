@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/custom_circular_progress_indicator.dart';
-import '../../core/constants.dart';
-import '../../services/weather.dart';
-import '../../services/weather_service.dart';
+import '../../../common_widgets/custom_circular_progress_indicator.dart';
+import '../../../core/constants.dart';
+import '../../../services/weather_service.dart';
+import '../data/location_weather.dart';
 import 'weather_display.dart';
 
 class MyLocationWeather extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
   final _weatherService = WeatherService();
   bool _isLoading = false;
 
-  Weather? _myLocationWeather;
+  LocationWeather? _myLocationWeather;
 
   @override
   Widget build(BuildContext context) {

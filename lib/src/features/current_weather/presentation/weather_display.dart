@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants.dart';
-import '../../core/palette.dart';
-import '../../services/weather.dart';
-import '../../utils/datetime_extensions.dart';
-import '../../utils/string_extensions.dart';
+import '../../../core/constants.dart';
+import '../../../core/palette.dart';
+import '../../../utils/datetime_extensions.dart';
+import '../../../utils/string_extensions.dart';
+import '../data/location_weather.dart';
 
 class WeatherDisplay extends StatelessWidget {
   const WeatherDisplay({
@@ -12,7 +12,7 @@ class WeatherDisplay extends StatelessWidget {
     required this.weather,
   }) : super(key: key);
 
-  final Weather weather;
+  final LocationWeather weather;
 
   @override
   Widget build(BuildContext context) {

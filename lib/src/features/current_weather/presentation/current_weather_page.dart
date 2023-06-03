@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants.dart';
+import '../../../core/constants.dart';
+import '../data/location_weather_type.dart';
 import 'custom_location_weather.dart';
 import 'my_location_weather.dart';
-import 'weather_location.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class CurrentWeatherPage extends StatefulWidget {
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   bool _isLoading = false;
 
-  WeatherLocation _locationType = WeatherLocation.current;
+  LocationWeatherType _locationType = LocationWeatherType.current;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SegmentedButton<WeatherLocation>(
-            segments: WeatherLocation.values
+          SegmentedButton<LocationWeatherType>(
+            segments: LocationWeatherType.values
                 .map(
                   (type) => ButtonSegment(
                     value: type,
@@ -34,15 +34,15 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                   ),
                 )
                 .toList(),
-            selected: <WeatherLocation>{_locationType},
+            selected: <LocationWeatherType>{_locationType},
             onSelectionChanged: _isLoading
                 ? null
-                : (Set<WeatherLocation> newSelection) {
+                : (Set<LocationWeatherType> newSelection) {
                     setState(() => _locationType = newSelection.first);
                   },
           ),
           const SizedBox(height: kPadding20),
-          _locationType == WeatherLocation.current
+          _locationType == LocationWeatherType.current
               ? const MyLocationWeather()
               : const CustomLocationWeather(),
         ],
