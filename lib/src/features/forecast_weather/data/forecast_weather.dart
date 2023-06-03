@@ -1,5 +1,5 @@
 class WeatherForecast {
-  WeatherForecast({
+  const WeatherForecast({
     required this.temperature,
     required this.description,
     required this.icon,

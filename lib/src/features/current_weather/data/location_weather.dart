@@ -1,5 +1,5 @@
 class LocationWeather {
-  LocationWeather({
+  const LocationWeather({
     required this.latitude,
     required this.longitude,
     required this.description,
