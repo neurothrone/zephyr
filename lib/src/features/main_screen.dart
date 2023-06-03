@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../core/palette.dart';
 import '../utils/string_extensions.dart';
 import 'app_tab.dart';
 import 'about/about_page.dart';
-import 'current_weather/current_weather_page.dart';
-import 'forecast_weather/forecast_weather_page.dart';
+import 'current_weather/presentation/current_weather_page.dart';
+import 'forecast_weather/presentation/forecast_weather_page.dart';
 
 const List<Widget> _pages = [
   CurrentWeatherPage(),
@@ -27,6 +28,16 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.refresh_rounded,
+              color: Palette.darkOrange,
+            ),
+            tooltip: "Refresh Weather",
+          ),
+        ],
       ),
       body: IndexedStack(
         index: _selectedTab,
