@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../core/constants.dart';
 import '../../../services/weather_service.dart';
-import '../../../utils/datetime_extensions.dart';
 import '../data/forecast_weather.dart';
+import 'weather_forecast_row.dart';
 
 class ForecastWeatherPage extends StatefulWidget {
   const ForecastWeatherPage({Key? key}) : super(key: key);
@@ -24,6 +24,7 @@ class _ForecastWeatherPageState extends State<ForecastWeatherPage> {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(kPadding20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ElevatedButton(
             onPressed: _isLoading ? null : _getForecastWeather,
@@ -35,7 +36,7 @@ class _ForecastWeatherPageState extends State<ForecastWeatherPage> {
           ] else ...[
             if (_myForecastWeatherList.isNotEmpty)
               for (WeatherForecast weatherData in _myForecastWeatherList) ...[
-                Text(weatherData.datetime.formattedLong),
+                WeatherForecastRow(weather: weatherData),
               ],
           ],
         ],
