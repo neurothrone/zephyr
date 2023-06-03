@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'weather.dart';
 
-const _baseUrl = "https://api.openweathermap.org/data/2.5/weather";
+const _baseUrl = "https://api.openweathermap.org/data/2.5";
 
 class WeatherService {
   WeatherService() {
@@ -19,13 +19,29 @@ class WeatherService {
 
   late final String _apiKey;
 
-  Future<http.Response> requestCurrentWeather(
+  Future<http.Response> _requestCurrentWeather(
     double latitude,
     double longitude,
   ) async {
     final response = await http.get(
       Uri.parse(
-        "$_baseUrl?"
+        "$_baseUrl/weather?"
+        "lat=$latitude&"
+        "lon=$longitude&"
+        "appid=$_apiKey&"
+        "units=metric",
+      ),
+    );
+    return response;
+  }
+
+  Future<http.Response> _requestForecastWeather(
+    double latitude,
+    double longitude,
+  ) async {
+    final response = await http.get(
+      Uri.parse(
+        "$_baseUrl/forecast?"
         "lat=$latitude&"
         "lon=$longitude&"
         "appid=$_apiKey&"
@@ -39,7 +55,7 @@ class WeatherService {
     double latitude,
     double longitude,
   ) async {
-    final response = await requestCurrentWeather(
+    final response = await _requestCurrentWeather(
       latitude,
       longitude,
     );
