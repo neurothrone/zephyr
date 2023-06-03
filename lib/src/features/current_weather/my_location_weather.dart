@@ -17,7 +17,7 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
   final _weatherService = WeatherService();
   bool _isLoading = false;
 
-  Weather? _currentWeather;
+  Weather? _myLocationWeather;
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,16 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
           child: const Text("Get Current Weather"),
         ),
         const SizedBox(height: kPadding20),
-        _isLoading
-            ? const CustomCircularProgressIndicator()
-            : _currentWeather != null
-                ? WeatherDisplay(weather: _currentWeather!)
-                : const SizedBox.shrink()
+        if (_isLoading)
+          const CustomCircularProgressIndicator()
+        else if (_myLocationWeather != null)
+          WeatherDisplay(weather: _myLocationWeather!)
       ],
     );
   }
 
   Future<void> _getCurrentWeather() async {
-    _currentWeather = null;
+    _myLocationWeather = null;
 
     setState(() => _isLoading = true);
 
@@ -48,7 +47,7 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
     );
 
     if (weather != null) {
-      setState(() => _currentWeather = weather);
+      setState(() => _myLocationWeather = weather);
     }
 
     setState(() => _isLoading = false);
