@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
-import '../../../../services/location_service.dart';
-import '../../../../services/weather_service.dart';
 import '../../domain/location_weather.dart';
 import '../location_weather_display.dart';
+import 'location_forecast_weather_display.dart';
 
-class LocalLocationWeather extends StatefulWidget {
-  const LocalLocationWeather({Key? key}) : super(key: key);
+class LocalLocationWeather extends StatelessWidget {
+  const LocalLocationWeather({
+    Key? key,
+    required this.isLoading,
+    required this.weather,
+  }) : super(key: key);
 
-  @override
-  State<LocalLocationWeather> createState() => _LocalLocationWeatherState();
-}
-
-class _LocalLocationWeatherState extends State<LocalLocationWeather> {
-  final _weatherService = WeatherService();
-  final _locationService = LocationService();
-
-  LocationWeather? _weather;
-  bool _isLoading = false;
+  final bool isLoading;
+  final LocationWeather? weather;
 
   @override
   Widget build(BuildContext context) {
@@ -28,100 +23,30 @@ class _LocalLocationWeatherState extends State<LocalLocationWeather> {
     return LayoutBuilder(
         builder: (context, BoxConstraints viewportConstraints) {
       return SingleChildScrollView(
-        padding: const EdgeInsets.all(kPadding20),
+        padding: EdgeInsets.symmetric(
+          horizontal: kPadding20,
+          vertical:
+              mediaQuery.orientation == Orientation.landscape ? kPadding20 : 0,
+        ),
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // ElevatedButton(
-              //   onPressed: _isLoading ? null : _getCurrentWeather,
-              //   child: const Text("Get Local Weather"),
-              // ),
-              LocationWeatherDisplay(weather: fakeLocationWeather),
-              // This fixes the spacing that is lost in landscape mode
-              if (mediaQuery.orientation == Orientation.landscape)
-                SizedBox(height: mediaQuery.size.height * 0.1),
-              const LocationForecastWeatherDisplay(),
-
-              // if (_isLoading) ...[
-              //   const CustomCircularProgressIndicator()
-              // ] else ...[
-              //   if (_myLocationWeather != null)
-              //     WeatherDisplay(weather: _weather!)
-              // ],
-            ],
-          ),
+          child: isLoading
+              ? const Center(child: CustomCircularProgressIndicator())
+              : weather != null
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        LocationWeatherDisplay(weather: weather!),
+                        // This fixes the spacing that is lost in landscape mode
+                        if (mediaQuery.orientation == Orientation.landscape)
+                          SizedBox(height: mediaQuery.size.height * 0.1),
+                        const LocationForecastWeatherDisplay(),
+                      ],
+                    )
+                  : const Center(child: Text("No weather yet")),
         ),
       );
     });
-  }
-
-  Future<void> _getCurrentWeather() async {
-    _weather = null;
-
-    setState(() => _isLoading = true);
-
-    final position = await _locationService.getCurrentLocation();
-
-    if (position == null) {
-      // TODO: show alert: location permission is required
-      setState(() => _isLoading = false);
-      return;
-    }
-
-    final weather = await _weatherService.getCurrentWeather(
-      latitude: position.latitude,
-      longitude: position.longitude,
-    );
-
-    if (weather != null) {
-      setState(() => _weather = weather);
-    }
-
-    setState(() => _isLoading = false);
-  }
-}
-
-class LocationForecastWeatherDisplay extends StatelessWidget {
-  const LocationForecastWeatherDisplay({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(
-        5,
-        (_) => const LocationForecastWeatherItem(),
-      ),
-    );
-  }
-}
-
-class LocationForecastWeatherItem extends StatelessWidget {
-  const LocationForecastWeatherItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text(
-          "Fri",
-          style: TextStyle(color: Colors.white60),
-        ),
-        Image.asset(
-          "assets/images/${fakeLocationWeather.icon}@2x.png",
-          width: 40.0,
-          height: 40.0,
-        ),
-        // const SizedBox(height: 10.0),
-        Text(
-          "${fakeLocationWeather.temperature} °C",
-          style: const TextStyle(),
-        ),
-        // const Text("H: 15 °C L: 15 °C"),
-      ],
-    );
   }
 }

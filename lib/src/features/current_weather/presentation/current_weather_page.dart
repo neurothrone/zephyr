@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/palette.dart';
+import '../../../services/location_service.dart';
+import '../../../services/weather_service.dart';
+import '../domain/location_weather.dart';
 import 'current_weather_page_tab_bar.dart';
 import 'custom/custom_location_weather.dart';
 import 'local/local_location_weather.dart';
 
-class CurrentWeatherPage extends StatelessWidget {
+class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({super.key});
+
+  @override
+  State<CurrentWeatherPage> createState() => _CurrentWeatherPageState();
+}
+
+class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
+  final _weatherService = WeatherService();
+  final _locationService = LocationService();
+
+  LocationWeather? _weather;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +29,53 @@ class CurrentWeatherPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Weather App"),
+          actions: [
+            IconButton(
+              onPressed: _getCurrentWeather,
+              icon: const Icon(
+                Icons.refresh_rounded,
+                color: Palette.darkOrange,
+              ),
+              tooltip: "Refresh Weather for Current Location",
+            ),
+          ],
           bottom: const CurrentWeatherPageTabBar(),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            LocalLocationWeather(),
-            CustomLocationWeather(),
+            LocalLocationWeather(
+              isLoading: _isLoading,
+              weather: _weather,
+            ),
+            const CustomLocationWeather(),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _getCurrentWeather() async {
+    _weather = null;
+
+    setState(() => _isLoading = true);
+
+    final position = await _locationService.getCurrentLocation();
+
+    if (position == null) {
+      // TODO: show alert: location permission is required
+      setState(() => _isLoading = false);
+      return;
+    }
+
+    final newWeather = await _weatherService.getCurrentWeather(
+      latitude: position.latitude,
+      longitude: position.longitude,
+    );
+
+    if (newWeather != null) {
+      _weather = newWeather;
+    }
+
+    setState(() => _isLoading = false);
   }
 }
