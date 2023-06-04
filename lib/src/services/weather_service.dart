@@ -70,7 +70,7 @@ class WeatherService {
     }
   }
 
-  Future<List<WeatherForecast>> getForecastWeather({
+  Future<List<ForecastWeather>> getForecastWeather({
     required double latitude,
     required double longitude,
   }) async {
@@ -82,8 +82,8 @@ class WeatherService {
     if (response.statusCode == 200) {
       Map<String, dynamic> decodedResponse = jsonDecode(response.body);
 
-      List<WeatherForecast> forecastList = (decodedResponse["list"] as List)
-          .map((json) => WeatherForecast.fromJson(json))
+      List<ForecastWeather> forecastList = (decodedResponse["list"] as List)
+          .map((json) => ForecastWeather.fromJson(json))
           .toList();
 
       return forecastList;

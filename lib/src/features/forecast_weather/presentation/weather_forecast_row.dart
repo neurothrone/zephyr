@@ -10,7 +10,7 @@ class WeatherForecastRow extends StatelessWidget {
     required this.weather,
   }) : super(key: key);
 
-  final WeatherForecast weather;
+  final ForecastWeather weather;
 
   String get iconPath => "assets/images/${weather.icon}@2x.png";
 
