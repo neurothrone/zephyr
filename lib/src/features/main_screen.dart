@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/palette.dart';
 import '../utils/string_extensions.dart';
 import 'app_tab.dart';
 import 'about/about_page.dart';
@@ -26,19 +25,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Weather App"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.refresh_rounded,
-              color: Palette.darkOrange,
-            ),
-            tooltip: "Refresh Weather",
-          ),
-        ],
-      ),
       body: IndexedStack(
         index: _selectedTab,
         children: _pages,
