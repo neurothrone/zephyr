@@ -15,9 +15,7 @@ class MainApp extends StatelessWidget {
       title: "Weather App",
       home: const PageSwitcher(),
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Palette.darkBlue,
-        ),
+        appBarTheme: const AppBarTheme(backgroundColor: Palette.darkBlue),
         scaffoldBackgroundColor: Palette.darkBlue.withOpacity(0.5),
         bottomNavigationBarTheme: kCustomBottomNavigationBarThemeData,
         textTheme: const TextTheme(
@@ -25,7 +23,6 @@ class MainApp extends StatelessWidget {
         ),
         elevatedButtonTheme: customElevatedButtonThemeData,
         segmentedButtonTheme: customSegmentedButtonThemeData,
-        inputDecorationTheme: customInputDecorationTheme,
       ),
     );
   }

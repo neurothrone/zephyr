@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'constants.dart';
 import 'palette.dart';
 
 final customElevatedButtonThemeData = ElevatedButtonThemeData(
@@ -36,18 +35,5 @@ final customSegmentedButtonThemeData = SegmentedButtonThemeData(
     side: MaterialStateProperty.all(
       const BorderSide(color: Colors.black),
     ),
-  ),
-);
-
-final customInputDecorationTheme = InputDecorationTheme(
-  border: kOutlineInputBorder,
-  enabledBorder: kOutlineInputBorder,
-  focusedBorder: kOutlineInputBorder,
-  labelStyle: TextStyle(
-    color: Palette.darkOrange.withOpacity(0.65),
-  ),
-  floatingLabelStyle: const TextStyle(
-    color: Palette.darkOrange,
-    fontWeight: FontWeight.bold,
   ),
 );
