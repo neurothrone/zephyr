@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'current_weather_page_tab_bar.dart';
-import 'custom_location_weather.dart';
-import 'local_location_weather.dart';
+import 'custom/custom_location_weather.dart';
+import 'local/local_location_weather.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
   const CurrentWeatherPage({super.key});
