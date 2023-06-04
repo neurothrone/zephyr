@@ -5,20 +5,21 @@ class RoundedInput extends StatelessWidget {
     super.key,
     required this.controller,
     required this.onPressed,
-    required this.inputText,
     required this.buttonText,
+    this.hintText = "",
     this.borderRadius = 30.0,
-    required this.borderColor,
-    required this.focusedBorderColor,
-    required this.buttonForegroundColor,
-    required this.buttonBackgroundColor,
-    required this.buttonDisabledColor,
+    this.borderColor = Colors.transparent,
+    this.focusedBorderColor = Colors.blue,
+    this.buttonForegroundColor = Colors.white,
+    this.buttonBackgroundColor = Colors.blue,
+    this.buttonDisabledColor,
+    this.textAlign = TextAlign.center,
   });
 
   final TextEditingController controller;
   final VoidCallback onPressed;
-  final String inputText;
   final String buttonText;
+  final String hintText;
 
   final double borderRadius;
   final Color borderColor;
@@ -26,7 +27,8 @@ class RoundedInput extends StatelessWidget {
 
   final Color buttonForegroundColor;
   final Color buttonBackgroundColor;
-  final Color buttonDisabledColor;
+  final Color? buttonDisabledColor;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +39,11 @@ class RoundedInput extends StatelessWidget {
             child: RoundedInputTextField(
               onSubmitted: onPressed,
               controller: controller,
-              hintText: inputText,
+              hintText: hintText,
               borderColor: borderColor,
               focusedBorderColor: focusedBorderColor,
               borderRadius: borderRadius,
+              textAlign: TextAlign.center,
             ),
           ),
           SizedBox(
@@ -52,7 +55,7 @@ class RoundedInput extends StatelessWidget {
               borderRadius: borderRadius,
               foregroundColor: buttonForegroundColor,
               backgroundColor: buttonBackgroundColor,
-              disabledColor: buttonDisabledColor,
+              disabledColor: buttonDisabledColor ?? Colors.grey.shade600,
             ),
           ),
         ],
@@ -70,6 +73,7 @@ class RoundedInputTextField extends StatelessWidget {
     required this.borderRadius,
     required this.borderColor,
     required this.focusedBorderColor,
+    required this.textAlign,
   });
 
   final TextEditingController controller;
@@ -78,12 +82,14 @@ class RoundedInputTextField extends StatelessWidget {
   final double borderRadius;
   final Color borderColor;
   final Color focusedBorderColor;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      textAlign: TextAlign.start,
+      cursorColor: focusedBorderColor,
+      textAlign: TextAlign.center,
       style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         fillColor: Colors.white,
