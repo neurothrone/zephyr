@@ -7,8 +7,19 @@ const kPadding10 = 10.0;
 const kPadding20 = 20.0;
 const kPadding40 = 40.0;
 
+const kInputHeight = 50.0;
+
+const kBorderRadiusValue = 20.0;
 const kBorderRadius = BorderRadius.all(
-  Radius.circular(20.0),
+  Radius.circular(kBorderRadiusValue),
+);
+const kLeftBorderRadius = BorderRadius.only(
+  topLeft: Radius.circular(20.0),
+  bottomLeft: Radius.circular(20.0),
+);
+const kRightBorderRadius = BorderRadius.only(
+  topRight: Radius.circular(kBorderRadiusValue),
+  bottomRight: Radius.circular(kBorderRadiusValue),
 );
 
 const kOutlineInputBorder = OutlineInputBorder(
