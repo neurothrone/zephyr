@@ -23,29 +23,39 @@ class _LocalLocationWeatherState extends State<LocalLocationWeather> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(kPadding20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // ElevatedButton(
-          //   onPressed: _isLoading ? null : _getCurrentWeather,
-          //   child: const Text("Get Local Weather"),
-          // ),
-          const SizedBox(height: kPadding40 * 2),
-          LocationWeatherDisplay(weather: fakeLocationWeather),
-          const SizedBox(height: kPadding40 * 2),
-          const LocationForecastWeatherDisplay(),
+    final mediaQuery = MediaQuery.of(context);
 
-          // if (_isLoading) ...[
-          //   const CustomCircularProgressIndicator()
-          // ] else ...[
-          //   if (_myLocationWeather != null)
-          //     WeatherDisplay(weather: _weather!)
-          // ],
-        ],
-      ),
-    );
+    return LayoutBuilder(
+        builder: (context, BoxConstraints viewportConstraints) {
+      return SingleChildScrollView(
+        padding: const EdgeInsets.all(kPadding20),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // ElevatedButton(
+              //   onPressed: _isLoading ? null : _getCurrentWeather,
+              //   child: const Text("Get Local Weather"),
+              // ),
+              LocationWeatherDisplay(weather: fakeLocationWeather),
+              // This fixes the spacing that is lost in landscape mode
+              if (mediaQuery.orientation == Orientation.landscape)
+                SizedBox(height: mediaQuery.size.height * 0.1),
+              const LocationForecastWeatherDisplay(),
+
+              // if (_isLoading) ...[
+              //   const CustomCircularProgressIndicator()
+              // ] else ...[
+              //   if (_myLocationWeather != null)
+              //     WeatherDisplay(weather: _weather!)
+              // ],
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   Future<void> _getCurrentWeather() async {
