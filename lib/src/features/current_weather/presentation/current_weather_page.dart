@@ -1,51 +1,43 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants.dart';
+import '../../../core/palette.dart';
 import '../domain/location_weather_type.dart';
 import 'custom_location_weather.dart';
 import 'my_location_weather.dart';
 
-class CurrentWeatherPage extends StatefulWidget {
-  const CurrentWeatherPage({Key? key}) : super(key: key);
-
-  @override
-  State<CurrentWeatherPage> createState() => _CurrentWeatherPageState();
-}
-
-class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
-  bool _isLoading = false;
-
-  LocationWeatherType _locationType = LocationWeatherType.current;
+class CurrentWeatherPage extends StatelessWidget {
+  const CurrentWeatherPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(kPadding20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SegmentedButton<LocationWeatherType>(
-            segments: LocationWeatherType.values
-                .map(
-                  (type) => ButtonSegment(
-                    value: type,
-                    label: Text(type.label),
-                    icon: Icon(type.icon),
-                  ),
-                )
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Weather App"),
+          bottom: TabBar(
+            indicatorColor: Palette.darkOrange,
+            tabs: LocationWeatherType.values
+                .map((tab) => Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(tab.icon),
+                          const SizedBox(width: kPadding10),
+                          Text(tab.label),
+                        ],
+                      ),
+                    ))
                 .toList(),
-            selected: <LocationWeatherType>{_locationType},
-            onSelectionChanged: _isLoading
-                ? null
-                : (Set<LocationWeatherType> newSelection) {
-                    setState(() => _locationType = newSelection.first);
-                  },
           ),
-          const SizedBox(height: kPadding20),
-          _locationType == LocationWeatherType.current
-              ? const MyLocationWeather()
-              : const CustomLocationWeather(),
-        ],
+        ),
+        body: const TabBarView(
+          children: [
+            MyLocationWeather(),
+            CustomLocationWeather(),
+          ],
+        ),
       ),
     );
   }
