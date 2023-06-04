@@ -7,14 +7,16 @@ import '../../../../services/weather_service.dart';
 import '../../domain/location_weather.dart';
 import '../location_weather_display.dart';
 
-class CustomLocationWeather extends StatefulWidget {
-  const CustomLocationWeather({Key? key}) : super(key: key);
+class CustomLocationWeatherContent extends StatefulWidget {
+  const CustomLocationWeatherContent({Key? key}) : super(key: key);
 
   @override
-  State<CustomLocationWeather> createState() => _CustomLocationWeatherState();
+  State<CustomLocationWeatherContent> createState() =>
+      _CustomLocationWeatherContentState();
 }
 
-class _CustomLocationWeatherState extends State<CustomLocationWeather> {
+class _CustomLocationWeatherContentState
+    extends State<CustomLocationWeatherContent> {
   final _weatherService = WeatherService();
   LocationWeather? _myLocationWeather;
   bool _isLoading = false;

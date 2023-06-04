@@ -6,8 +6,8 @@ import '../../domain/location_weather.dart';
 import '../location_weather_display.dart';
 import 'location_forecast_weather_display.dart';
 
-class LocalLocationWeather extends StatelessWidget {
-  const LocalLocationWeather({
+class LocalLocationWeatherContent extends StatelessWidget {
+  const LocalLocationWeatherContent({
     Key? key,
     required this.isLoading,
     required this.weather,

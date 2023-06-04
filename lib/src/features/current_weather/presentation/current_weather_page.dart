@@ -5,8 +5,8 @@ import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
 import '../domain/location_weather.dart';
 import 'current_weather_page_tab_bar.dart';
-import 'custom/custom_location_weather.dart';
-import 'local/local_location_weather.dart';
+import 'custom/custom_location_weather_content.dart';
+import 'local/local_location_weather_content.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({super.key});
@@ -43,11 +43,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         ),
         body: TabBarView(
           children: [
-            LocalLocationWeather(
+            LocalLocationWeatherContent(
               isLoading: _isLoading,
               weather: _weather,
             ),
-            const CustomLocationWeather(),
+            const CustomLocationWeatherContent(),
           ],
         ),
       ),
