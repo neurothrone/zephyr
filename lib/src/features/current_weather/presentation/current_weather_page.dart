@@ -4,7 +4,7 @@ import '../../../core/constants.dart';
 import '../../../core/palette.dart';
 import '../domain/location_weather_type.dart';
 import 'custom_location_weather.dart';
-import 'my_location_weather.dart';
+import 'local_location_weather.dart';
 
 class CurrentWeatherPage extends StatelessWidget {
   const CurrentWeatherPage({super.key});
@@ -34,7 +34,7 @@ class CurrentWeatherPage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            MyLocationWeather(),
+            LocalLocationWeather(),
             CustomLocationWeather(),
           ],
         ),

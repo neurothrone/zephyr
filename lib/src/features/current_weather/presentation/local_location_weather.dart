@@ -9,14 +9,14 @@ import '../../../services/weather_service.dart';
 import '../domain/location_weather.dart';
 import 'weather_display.dart';
 
-class MyLocationWeather extends StatefulWidget {
-  const MyLocationWeather({Key? key}) : super(key: key);
+class LocalLocationWeather extends StatefulWidget {
+  const LocalLocationWeather({Key? key}) : super(key: key);
 
   @override
-  State<MyLocationWeather> createState() => _MyLocationWeatherState();
+  State<LocalLocationWeather> createState() => _LocalLocationWeatherState();
 }
 
-class _MyLocationWeatherState extends State<MyLocationWeather> {
+class _LocalLocationWeatherState extends State<LocalLocationWeather> {
   final _weatherService = WeatherService();
   LocationWeather? _myLocationWeather;
   bool _isLoading = false;
@@ -27,7 +27,7 @@ class _MyLocationWeatherState extends State<MyLocationWeather> {
       children: [
         ElevatedButton(
           onPressed: _isLoading ? null : _getCurrentWeather,
-          child: const Text("Get Current Weather"),
+          child: const Text("Get Local Weather"),
         ),
         const SizedBox(height: kPadding20),
         if (_isLoading) ...[

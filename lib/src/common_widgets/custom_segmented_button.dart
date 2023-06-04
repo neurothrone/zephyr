@@ -15,7 +15,7 @@ class CustomSegmentedButton extends StatefulWidget {
 }
 
 class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
-  LocationWeatherType _locationType = LocationWeatherType.current;
+  LocationWeatherType _locationType = LocationWeatherType.local;
 
   @override
   Widget build(BuildContext context) {
