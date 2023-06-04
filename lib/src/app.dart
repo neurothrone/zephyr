@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'core/constants.dart';
 import 'core/palette.dart';
 import 'core/theme.dart';
-import 'features/main_screen.dart';
+import 'features/page_switcher.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Weather App",
-      home: const MainScreen(),
+      home: const PageSwitcher(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           backgroundColor: Palette.darkBlue,

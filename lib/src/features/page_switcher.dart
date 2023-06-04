@@ -12,14 +12,14 @@ const List<Widget> _pages = [
   AboutPage(),
 ];
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class PageSwitcher extends StatefulWidget {
+  const PageSwitcher({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<PageSwitcher> createState() => _PageSwitcherState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _PageSwitcherState extends State<PageSwitcher> {
   int _selectedTab = 0;
 
   @override
