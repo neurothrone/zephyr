@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../common_widgets/weather_image.dart';
 import '../../../../core/constants.dart';
 import '../../../../utils/datetime_extensions.dart';
+import '../../../../utils/string_extensions.dart';
 import '../../domain/location_weather.dart';
 
 class CurrentWeatherDisplay extends StatelessWidget {
@@ -18,7 +19,7 @@ class CurrentWeatherDisplay extends StatelessWidget {
     return Column(
       children: [
         Text(
-          weather.city,
+          "${weather.city}, ${weather.country}",
           style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
@@ -26,7 +27,12 @@ class CurrentWeatherDisplay extends StatelessWidget {
         ),
         const SizedBox(height: kPadding20),
         Text(
-          weather.datetime.time,
+          weather.datetime.formattedLong,
+          style: const TextStyle(color: Colors.white60),
+        ),
+        const SizedBox(height: kPadding10),
+        Text(
+          weather.description.capitalized,
           style: const TextStyle(color: Colors.white60),
         ),
         WeatherImage(iconName: weather.icon),
