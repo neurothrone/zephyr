@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/palette.dart';
 import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
+import '../../forecast_weather/domain/forecast_weather.dart';
 import '../domain/location_weather.dart';
 import 'current_weather_page_tab_bar.dart';
 import 'custom/custom_location_weather_content.dart';
@@ -19,7 +20,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   final _weatherService = WeatherService();
   final _locationService = LocationService();
 
-  LocationWeather? _weather;
+  LocationWeather? _currentWeather;
+  List<ForecastWeather> _forecastList = [];
   bool _isLoading = false;
 
   @override
@@ -45,7 +47,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           children: [
             LocalLocationWeatherContent(
               isLoading: _isLoading,
-              weather: _weather,
+              weather: _currentWeather,
+              forecastList: _forecastList,
             ),
             const CustomLocationWeatherContent(),
           ],
@@ -55,7 +58,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   }
 
   Future<void> _getCurrentWeather() async {
-    _weather = null;
+    _currentWeather = null;
+    _forecastList = [];
 
     setState(() => _isLoading = true);
 
@@ -71,9 +75,15 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       latitude: position.latitude,
       longitude: position.longitude,
     );
+    final newForecastList = await _weatherService.getForecastWeather(
+      latitude: position.latitude,
+      longitude: position.longitude,
+    );
 
-    if (newWeather != null) {
-      _weather = newWeather;
+    if (newWeather != null && newForecastList.isNotEmpty) {
+      _currentWeather = newWeather;
+      // Only interested in the 5 next intervals
+      _forecastList = newForecastList.getRange(1, 6).toList();
     }
 
     setState(() => _isLoading = false);

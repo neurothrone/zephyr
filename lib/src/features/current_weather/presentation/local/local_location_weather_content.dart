@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
+import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
 import '../location_weather_display.dart';
 import 'location_forecast_weather_display.dart';
@@ -11,10 +12,12 @@ class LocalLocationWeatherContent extends StatelessWidget {
     Key? key,
     required this.isLoading,
     required this.weather,
+    required this.forecastList,
   }) : super(key: key);
 
   final bool isLoading;
   final LocationWeather? weather;
+  final List<ForecastWeather> forecastList;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,9 @@ class LocalLocationWeatherContent extends StatelessWidget {
       return SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: kPadding20,
-          vertical:
-              mediaQuery.orientation == Orientation.landscape ? kPadding20 : 0,
+          vertical: mediaQuery.orientation == Orientation.landscape
+              ? kPadding20
+              : kPadding0,
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
@@ -41,7 +45,10 @@ class LocalLocationWeatherContent extends StatelessWidget {
                         // This fixes the spacing that is lost in landscape mode
                         if (mediaQuery.orientation == Orientation.landscape)
                           SizedBox(height: mediaQuery.size.height * 0.1),
-                        const LocationForecastWeatherDisplay(),
+                        if (forecastList.isNotEmpty)
+                          LocationForecastWeatherDisplay(
+                            forecastList: forecastList,
+                          ),
                       ],
                     )
                   : const Center(child: Text("No weather yet")),
