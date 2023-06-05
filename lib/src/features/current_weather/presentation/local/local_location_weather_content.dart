@@ -23,7 +23,7 @@ class LocalLocationWeatherContent extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
 
     return LayoutBuilder(
-        builder: (context, BoxConstraints viewportConstraints) {
+        builder: (context, BoxConstraints constraints) {
       return SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: kPadding20,
@@ -32,15 +32,17 @@ class LocalLocationWeatherContent extends StatelessWidget {
               : kPadding0,
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: viewportConstraints.maxHeight),
-          child: isLoading
-              ? const Center(child: CustomCircularProgressIndicator())
-              : weather != null
-                  ? FullWeatherDisplay(
-                      weather: weather!,
-                      forecastList: forecastList,
-                    )
-                  : const Center(child: Text("No weather yet")),
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Center(
+            child: isLoading
+                ? const CustomCircularProgressIndicator()
+                : weather != null
+                    ? FullWeatherDisplay(
+                        weather: weather!,
+                        forecastList: forecastList,
+                      )
+                    : const Text("No weather yet"),
+          ),
         ),
       );
     });
