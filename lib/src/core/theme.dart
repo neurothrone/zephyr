@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'palette.dart';
 
+final disabledColor = Colors.grey.shade600;
+
 final customElevatedButtonThemeData = ElevatedButtonThemeData(
   style: ButtonStyle(
     backgroundColor: MaterialStateProperty.resolveWith(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.disabled)) {
-          return Colors.grey;
+          return disabledColor;
         }
         return Palette.darkOrange;
       },
@@ -24,7 +26,7 @@ final customSegmentedButtonThemeData = SegmentedButtonThemeData(
     backgroundColor: MaterialStateProperty.resolveWith<Color>(
       (Set<MaterialState> states) {
         if (states.contains(MaterialState.disabled)) {
-          return Colors.grey;
+          return disabledColor;
         } else if (states.contains(MaterialState.selected)) {
           return Palette.darkOrange;
         }
