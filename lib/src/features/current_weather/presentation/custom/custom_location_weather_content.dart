@@ -27,12 +27,16 @@ class CustomLocationWeatherContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+
     return LayoutBuilder(builder: (context, BoxConstraints constraints) {
       return isLoading
           ? const CustomCircularProgressIndicator()
           : SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: kPadding20),
-              child: MediaQuery.of(context).orientation == Orientation.portrait
+              padding: orientation == Orientation.portrait
+                  ? const EdgeInsets.symmetric(horizontal: kPadding20)
+                  : const EdgeInsets.all(kPadding20),
+              child: orientation == Orientation.portrait
                   ? Stack(
                       children: [
                         Column(
@@ -69,7 +73,6 @@ class CustomLocationWeatherContent extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        const SizedBox(height: kPadding20),
                         RoundedInputButton(
                           onPressed: onSearch,
                           hintText: "City",
