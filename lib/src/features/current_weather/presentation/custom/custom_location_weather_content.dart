@@ -7,7 +7,7 @@ import '../../../../core/constants.dart';
 import '../../../../core/palette.dart';
 import '../../../../services/weather_service.dart';
 import '../../domain/location_weather.dart';
-import '../location_weather_display.dart';
+import 'custom_location_weather_display.dart';
 
 class CustomLocationWeatherContent extends StatefulWidget {
   const CustomLocationWeatherContent({Key? key}) : super(key: key);
@@ -21,10 +21,11 @@ class _CustomLocationWeatherContentState
     extends State<CustomLocationWeatherContent> {
   final _weatherService = WeatherService();
 
-  LocationWeather? _weather;
   late final TextEditingController _controller;
 
+  LocationWeather? _weather;
   String? _errorMessage;
+
   bool _isLoading = false;
 
   @override
@@ -55,25 +56,12 @@ class _CustomLocationWeatherContentState
             focusedBorderColor: Palette.darkOrange,
           ),
           const SizedBox(height: kPadding40),
-          if (_isLoading) ...[
-            const CustomCircularProgressIndicator()
-          ] else ...[
-            if (_weather != null)
-              LocationWeatherDisplay(weather: _weather!)
-            else if (_weather == null && _errorMessage != null)
-              Center(
-                child: Text(
-                  _errorMessage!,
-                  style: const TextStyle(color: Colors.red),
+          _isLoading
+              ? const CustomCircularProgressIndicator()
+              : CustomLocationWeatherDisplay(
+                  weather: _weather,
+                  errorMessage: _errorMessage,
                 ),
-              )
-            else
-              const Center(
-                child: Text(
-                  "No weather yet",
-                ),
-              ),
-          ],
         ],
       ),
     );
