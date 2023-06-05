@@ -39,12 +39,7 @@ class _ForecastWeatherPageState extends State<ForecastWeatherPage> {
           ? const CustomCircularProgressIndicator()
           : _forecastList.isNotEmpty
               ? ForecastWeatherContent(forecastList: _forecastList)
-              : const Center(
-                  child: Text(
-                    "No forecasts yet",
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                ),
+              : const Center(child: Text("No forecasts yet")),
     );
   }
 
