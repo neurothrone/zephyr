@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../common_widgets/weather_image.dart';
 import '../../../../utils/datetime_extensions.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 
@@ -38,8 +39,8 @@ class LocationForecastWeatherItem extends StatelessWidget {
           weather.datetime.time,
           style: const TextStyle(color: Colors.white60),
         ),
-        Image.asset(
-          "assets/images/${weather.icon}@2x.png",
+        WeatherImage(
+          iconName: weather.icon,
           width: 40.0,
           height: 40.0,
         ),
