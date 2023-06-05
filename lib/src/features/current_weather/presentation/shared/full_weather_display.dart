@@ -18,14 +18,10 @@ class FullWeatherDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         CurrentWeatherDisplay(weather: weather),
         SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-        LocationForecastWeatherDisplay(
-          forecastList: forecastList,
-        ),
+        LocationForecastWeatherDisplay(forecastList: forecastList),
       ],
     );
   }
