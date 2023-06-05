@@ -5,8 +5,8 @@ import '../../../core/constants.dart';
 import '../../../utils/datetime_extensions.dart';
 import '../domain/location_weather.dart';
 
-class LocationWeatherDisplay extends StatelessWidget {
-  const LocationWeatherDisplay({
+class CurrentWeatherDisplay extends StatelessWidget {
+  const CurrentWeatherDisplay({
     Key? key,
     required this.weather,
   }) : super(key: key);
