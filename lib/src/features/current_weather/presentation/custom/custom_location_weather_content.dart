@@ -44,31 +44,31 @@ class CustomLocationWeatherContent extends StatelessWidget {
               buttonBackgroundColor: Palette.darkOrange,
               focusedBorderColor: Palette.darkOrange,
             ),
-            if (mediaQuery.orientation == Orientation.landscape)
-              const SizedBox(height: kPadding20),
+            const SizedBox(height: kPadding20),
             ConstrainedBox(
               constraints: BoxConstraints(
                 minHeight: viewportConstraints.maxHeight,
               ),
               child: isLoading
                   ? const CustomCircularProgressIndicator()
-                  : errorMessage != null
-                      ? const Center(
-                          child: Text(
-                            "No weather found for that city",
-                            style: TextStyle(color: Colors.red),
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (weather != null) ...[
+                          FullWeatherDisplay(
+                            weather: weather!,
+                            forecastList: forecastList,
                           ),
-                        )
-                      : weather != null
-                          ? FullWeatherDisplay(
-                              weather: weather!,
-                              forecastList: forecastList,
-                            )
-                          : const Center(
-                              child: Text(
-                                "No weather yet",
-                              ),
-                            ),
+                        ] else ...[
+                          errorMessage != null
+                              ? const Text(
+                                  "No weather found for that city",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : const Text("No weather yet"),
+                        ],
+                      ],
+                    ),
             ),
           ],
         ),
