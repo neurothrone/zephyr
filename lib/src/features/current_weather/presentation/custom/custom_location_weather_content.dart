@@ -27,52 +27,70 @@ class CustomLocationWeatherContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-
-    return LayoutBuilder(
-        builder: (context, BoxConstraints viewportConstraints) {
-      return SingleChildScrollView(
-        padding: const EdgeInsets.all(kPadding20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            RoundedInputButton(
-              onPressed: onSearch,
-              hintText: "City",
-              buttonText: "Search",
-              buttonBackgroundColor: Palette.darkOrange,
-              focusedBorderColor: Palette.darkOrange,
-            ),
-            const SizedBox(height: kPadding20),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-              ),
-              child: isLoading
-                  ? const CustomCircularProgressIndicator()
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+    return LayoutBuilder(builder: (context, BoxConstraints constraints) {
+      return isLoading
+          ? const CustomCircularProgressIndicator()
+          : SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: kPadding20),
+              child: MediaQuery.of(context).orientation == Orientation.portrait
+                  ? Stack(
                       children: [
-                        if (weather != null) ...[
+                        Column(
+                          children: [
+                            const SizedBox(height: kPadding20),
+                            RoundedInputButton(
+                              onPressed: onSearch,
+                              hintText: "City",
+                              buttonText: "Search",
+                              buttonBackgroundColor: Palette.darkOrange,
+                              focusedBorderColor: Palette.darkOrange,
+                            ),
+                          ],
+                        ),
+                        ConstrainedBox(
+                          constraints: constraints,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (weather != null)
+                                FullWeatherDisplay(
+                                  weather: weather!,
+                                  forecastList: forecastList,
+                                )
+                              else if (errorMessage != null)
+                                const Text(
+                                  "No weather found for that city",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        const SizedBox(height: kPadding20),
+                        RoundedInputButton(
+                          onPressed: onSearch,
+                          hintText: "City",
+                          buttonText: "Search",
+                          buttonBackgroundColor: Palette.darkOrange,
+                          focusedBorderColor: Palette.darkOrange,
+                        ),
+                        const SizedBox(height: kPadding20),
+                        if (weather != null)
                           FullWeatherDisplay(
                             weather: weather!,
                             forecastList: forecastList,
+                          )
+                        else if (errorMessage != null)
+                          const Text(
+                            "No weather found for that city",
+                            style: TextStyle(color: Colors.red),
                           ),
-                        ] else ...[
-                          errorMessage != null
-                              ? const Text(
-                                  "No weather found for that city",
-                                  style: TextStyle(color: Colors.red),
-                                )
-                              : const Text("No weather yet"),
-                        ],
                       ],
                     ),
-            ),
-          ],
-        ),
-      );
+            );
     });
   }
 }
