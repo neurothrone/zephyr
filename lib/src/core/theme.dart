@@ -4,6 +4,15 @@ import 'palette.dart';
 
 final disabledColor = Colors.grey.shade600;
 
+const kCustomBottomNavigationBarThemeData = BottomNavigationBarThemeData(
+  backgroundColor: Palette.darkBlue,
+  selectedItemColor: Palette.darkOrange,
+  selectedIconTheme: IconThemeData(color: Palette.darkOrange),
+  selectedLabelStyle: TextStyle(fontSize: 20.0),
+  unselectedItemColor: Palette.lightOrange,
+  unselectedIconTheme: IconThemeData(color: Palette.lightOrange),
+);
+
 final customElevatedButtonThemeData = ElevatedButtonThemeData(
   style: ButtonStyle(
     backgroundColor: MaterialStateProperty.resolveWith(
