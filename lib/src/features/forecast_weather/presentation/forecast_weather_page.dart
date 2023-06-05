@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../common_widgets/custom_circular_progress_indicator.dart';
+import '../../../common_widgets/refresh_icon_button.dart';
 import '../../../core/constants.dart';
+import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
 import '../domain/forecast_weather.dart';
-import 'weather_forecast_row.dart';
+import 'forecast_weather_content.dart';
 
 class ForecastWeatherPage extends StatefulWidget {
   const ForecastWeatherPage({Key? key}) : super(key: key);
@@ -14,49 +16,53 @@ class ForecastWeatherPage extends StatefulWidget {
 }
 
 class _ForecastWeatherPageState extends State<ForecastWeatherPage> {
+  final _locationService = LocationService();
   final _weatherService = WeatherService();
-  bool _isLoading = false;
 
-  List<WeatherForecast> _myForecastWeatherList = [];
+  List<ForecastWeather> _forecastList = [];
+
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(kPadding20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ElevatedButton(
-            onPressed: _isLoading ? null : _getForecastWeather,
-            child: const Text("Get Forecast Weather"),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(appTitle),
+        actions: [
+          RefreshIconButton(
+            onPressed: _getForecastsForCurrentLocation,
+            tooltip: "Refresh Forecast Weather for Current Location",
           ),
-          const SizedBox(height: kPadding20),
-          if (_isLoading) ...[
-            const CustomCircularProgressIndicator()
-          ] else ...[
-            if (_myForecastWeatherList.isNotEmpty)
-              for (WeatherForecast weatherData in _myForecastWeatherList) ...[
-                WeatherForecastRow(weather: weatherData),
-              ],
-          ],
         ],
       ),
+      body: _isLoading
+          ? const CustomCircularProgressIndicator()
+          : _forecastList.isNotEmpty
+              ? ForecastWeatherContent(forecastList: _forecastList)
+              : const Center(
+                  child: Text(
+                    "No forecasts yet",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                ),
     );
   }
 
-  Future<void> _getForecastWeather() async {
-    _myForecastWeatherList = [];
-
+  Future<void> _getForecastsForCurrentLocation() async {
     setState(() => _isLoading = true);
 
-    final forecastWeather = await _weatherService.getForecastWeather(
-      latitude: 55.61234260391604,
-      longitude: 12.980266915343263,
-    );
-
-    if (forecastWeather.isNotEmpty) {
-      setState(() => _myForecastWeatherList = forecastWeather);
+    final location = await _locationService.getCurrentLocation();
+    if (location == null) {
+      setState(() => _isLoading = false);
+      // TODO: show alert
+      return;
     }
+
+    final newForecastList = await _weatherService.getForecastWeatherByPosition(
+      latitude: location.latitude,
+      longitude: location.longitude,
+    );
+    _forecastList = newForecastList;
 
     setState(() => _isLoading = false);
   }
