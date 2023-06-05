@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../common_widgets/refresh_icon_button.dart';
 import '../../../core/constants.dart';
-import '../../../core/palette.dart';
-import '../../../core/theme.dart';
 import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
 import '../../forecast_weather/domain/forecast_weather.dart';
@@ -54,12 +53,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
         appBar: AppBar(
           title: const Text(appTitle),
           actions: [
-            IconButton(
+            RefreshIconButton(
               onPressed: _isRefreshEnabled ? _getCurrentWeather : null,
-              icon: Icon(
-                Icons.refresh_rounded,
-                color: _isRefreshEnabled ? Palette.darkOrange : disabledColor,
-              ),
               tooltip: "Refresh Weather for Current Location",
             ),
           ],
