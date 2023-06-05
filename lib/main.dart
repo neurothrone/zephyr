@@ -8,5 +8,7 @@ Future<void> main() async {
   // Attempt to load in environment variables from .env file
   await dotenv.load(fileName: ".env");
 
-  runApp(const MainApp());
+  runApp(
+    const MainApp(),
+  );
 }
