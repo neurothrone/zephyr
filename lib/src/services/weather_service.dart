@@ -20,6 +20,7 @@ class WeatherService {
 
   late final String _apiKey;
 
+  // Source: https://openweathermap.org/current
   Future<http.Response> _requestCurrentWeather({
     required double latitude,
     required double longitude,
@@ -36,6 +37,7 @@ class WeatherService {
     return response;
   }
 
+  // Source: https://openweathermap.org/forecast5
   Future<http.Response> _requestForecastWeather({
     required double latitude,
     required double longitude,
