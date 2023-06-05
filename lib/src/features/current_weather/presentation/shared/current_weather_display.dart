@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../common_widgets/weather_image.dart';
-import '../../../core/constants.dart';
-import '../../../utils/datetime_extensions.dart';
-import '../domain/location_weather.dart';
+import '../../../../common_widgets/weather_image.dart';
+import '../../../../core/constants.dart';
+import '../../../../utils/datetime_extensions.dart';
+import '../../domain/location_weather.dart';
 
 class CurrentWeatherDisplay extends StatelessWidget {
   const CurrentWeatherDisplay({
