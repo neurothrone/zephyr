@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants.dart';
 import '../../../core/palette.dart';
 import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
@@ -22,6 +23,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   LocationWeather? _currentWeather;
   List<ForecastWeather> _forecastList = [];
+
   bool _isLoading = false;
 
   @override
@@ -30,7 +32,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Weather App"),
+          title: const Text(appTitle),
           actions: [
             IconButton(
               onPressed: _getCurrentWeather,

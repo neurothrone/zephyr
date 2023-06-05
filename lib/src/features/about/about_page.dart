@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constants.dart';
 import 'about_content.dart';
 
 class AboutPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: const Text(appTitle),
       ),
       body: const AboutContent(),
     );

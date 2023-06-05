@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Weather App",
+      title: appTitle,
       home: const PageSwitcher(),
       theme: ThemeData(
         appBarTheme: const AppBarTheme(backgroundColor: Palette.darkBlue),
