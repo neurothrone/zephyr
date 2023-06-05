@@ -126,7 +126,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
 
   Future<void> _getCurrentWeatherByCity(String city) async {
     _errorMessage = null;
-    _currentWeather = null;
+    _customWeather = null;
     _customForecastList = [];
 
     setState(() => _isLoading = true);
