@@ -6,7 +6,9 @@ import 'package:http/http.dart' as http;
 import '../features/current_weather/domain/location_weather.dart';
 import '../features/forecast_weather/domain/forecast_weather.dart';
 
-const _baseUrl = "https://api.openweathermap.org/data/2.5";
+const _host = "api.openweathermap.org";
+
+enum PathEndpoint { weather, forecast }
 
 class WeatherService {
   WeatherService() {
@@ -20,56 +22,26 @@ class WeatherService {
 
   late final String _apiKey;
 
-  // Source: https://openweathermap.org/current
-  Future<http.Response> _requestCurrentWeatherByPosition({
-    required double latitude,
-    required double longitude,
+  Future<http.Response> _sendRequestToOpenWeatherMapAPI({
+    required Map<String, dynamic> params,
+    required PathEndpoint pathEndpoint,
   }) async {
-    final response = await http.get(
-      Uri.parse(
-        "$_baseUrl/weather?"
-        "lat=$latitude&"
-        "lon=$longitude&"
-        "appid=$_apiKey&"
-        "units=metric",
-      ),
+    final uri = Uri.https(
+      _host,
+      "/data/2.5/${pathEndpoint.name}",
+      params
+        ..addAll({
+          "appid": _apiKey,
+          "units": "metric",
+        }),
     );
+    final response = await http.get(uri);
     return response;
   }
 
-  // Source: https://openweathermap.org/current#name
-  Future<http.Response> _requestCurrentWeatherByCity({
-    required String city,
-  }) async {
-    final response = await http.get(
-      Uri.parse(
-        "$_baseUrl/weather?"
-        "q=$city&"
-        "appid=$_apiKey&"
-        "units=metric",
-      ),
-    );
-    return response;
-  }
-
-  // Source: https://openweathermap.org/forecast5
-  Future<http.Response> _requestForecastWeatherByPosition({
-    required double latitude,
-    required double longitude,
-  }) async {
-    final response = await http.get(
-      Uri.parse(
-        "$_baseUrl/forecast?"
-        "lat=$latitude&"
-        "lon=$longitude&"
-        "appid=$_apiKey&"
-        "units=metric",
-      ),
-    );
-    return response;
-  }
-
-  LocationWeather? _getCurrentWeather({required http.Response response}) {
+  LocationWeather? _processCurrentWeatherResponse({
+    required http.Response response,
+  }) {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final weather = LocationWeather.fromJson(json);
@@ -79,45 +51,66 @@ class WeatherService {
     }
   }
 
+  List<ForecastWeather> _processForecastWeatherResponse({
+    required http.Response response,
+  }) {
+    if (response.statusCode == 200) {
+      Map<String, dynamic> decodedResponse = jsonDecode(response.body);
+      final jsonList = decodedResponse["list"] as List;
+      List<ForecastWeather> forecastList =
+          jsonList.map((json) => ForecastWeather.fromJson(json)).toList();
+
+      return forecastList;
+    } else {
+      return [];
+    }
+  }
+
   Future<LocationWeather?> getCurrentWeatherByPosition({
     required double latitude,
     required double longitude,
   }) async {
-    final response = await _requestCurrentWeatherByPosition(
-      latitude: latitude,
-      longitude: longitude,
+    final response = await _sendRequestToOpenWeatherMapAPI(
+      params: {
+        "lat": latitude.toString(),
+        "lon": longitude.toString(),
+      },
+      pathEndpoint: PathEndpoint.weather,
     );
-    return _getCurrentWeather(response: response);
+    return _processCurrentWeatherResponse(response: response);
   }
 
   Future<LocationWeather?> getCurrentWeatherByCity({
     required String city,
   }) async {
-    final response = await _requestCurrentWeatherByCity(
-      city: city,
+    final response = await _sendRequestToOpenWeatherMapAPI(
+      params: {"q": city},
+      pathEndpoint: PathEndpoint.weather,
     );
-    return _getCurrentWeather(response: response);
+    return _processCurrentWeatherResponse(response: response);
   }
 
   Future<List<ForecastWeather>> getForecastWeatherByPosition({
     required double latitude,
     required double longitude,
   }) async {
-    final response = await _requestForecastWeatherByPosition(
-      latitude: latitude,
-      longitude: longitude,
+    final response = await _sendRequestToOpenWeatherMapAPI(
+      params: {
+        "lat": latitude.toString(),
+        "lon": longitude.toString(),
+      },
+      pathEndpoint: PathEndpoint.forecast,
     );
+    return _processForecastWeatherResponse(response: response);
+  }
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> decodedResponse = jsonDecode(response.body);
-
-      List<ForecastWeather> forecastList = (decodedResponse["list"] as List)
-          .map((json) => ForecastWeather.fromJson(json))
-          .toList();
-
-      return forecastList;
-    } else {
-      return [];
-    }
+  Future<List<ForecastWeather>> getForecastWeatherByCity({
+    required String city,
+  }) async {
+    final response = await _sendRequestToOpenWeatherMapAPI(
+      params: {"q": city},
+      pathEndpoint: PathEndpoint.forecast,
+    );
+    return _processForecastWeatherResponse(response: response);
   }
 }
