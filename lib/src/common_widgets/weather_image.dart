@@ -18,6 +18,7 @@ class WeatherImage extends StatelessWidget {
       "assets/images/$iconName@2x.png",
       width: width,
       height: height,
+      semanticLabel: "Visual weather description",
     );
   }
 }
