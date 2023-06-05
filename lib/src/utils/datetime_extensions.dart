@@ -5,4 +5,7 @@ extension StringFormat on DateTime {
 
   String get formattedLong =>
       DateFormat("EEE, MMM d, y - hh:mm a").format(this);
+
+  String get time =>
+      DateFormat("hh:mm a").format(this);
 }
