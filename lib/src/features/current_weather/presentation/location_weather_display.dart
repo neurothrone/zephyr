@@ -27,8 +27,12 @@ class LocationWeatherDisplay extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: kPadding20),
+        Text(
+          weather.datetime.time,
+          style: const TextStyle(color: Colors.white60),
+        ),
         Image.asset(iconPath),
-        // const SizedBox(height: 10.0),
         Text(
           "${weather.temperature} °C",
           style: const TextStyle(
@@ -36,7 +40,6 @@ class LocationWeatherDisplay extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        // const Text("H: 15 °C L: 15 °C"),
       ],
     );
   }
