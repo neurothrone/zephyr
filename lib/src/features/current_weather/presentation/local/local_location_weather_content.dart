@@ -4,8 +4,7 @@ import '../../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
-import '../location_weather_display.dart';
-import 'location_forecast_weather_display.dart';
+import '../shared/full_weather_display.dart';
 
 class LocalLocationWeatherContent extends StatelessWidget {
   const LocalLocationWeatherContent({
@@ -37,19 +36,9 @@ class LocalLocationWeatherContent extends StatelessWidget {
           child: isLoading
               ? const Center(child: CustomCircularProgressIndicator())
               : weather != null
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        LocationWeatherDisplay(weather: weather!),
-                        // This fixes the spacing that is lost in landscape mode
-                        if (mediaQuery.orientation == Orientation.landscape)
-                          SizedBox(height: mediaQuery.size.height * 0.1),
-                        if (forecastList.isNotEmpty)
-                          LocationForecastWeatherDisplay(
-                            forecastList: forecastList,
-                          ),
-                      ],
+                  ? FullWeatherDisplay(
+                      weather: weather!,
+                      forecastList: forecastList,
                     )
                   : const Center(child: Text("No weather yet")),
         ),
