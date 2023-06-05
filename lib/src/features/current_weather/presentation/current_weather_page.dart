@@ -96,11 +96,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
       return;
     }
 
-    final newWeather = await _weatherService.getCurrentWeather(
+    final newWeather = await _weatherService.getCurrentWeatherByPosition(
       latitude: position.latitude,
       longitude: position.longitude,
     );
-    final newForecastList = await _weatherService.getForecastWeather(
+    final newForecastList = await _weatherService.getForecastWeatherByPosition(
       latitude: position.latitude,
       longitude: position.longitude,
     );

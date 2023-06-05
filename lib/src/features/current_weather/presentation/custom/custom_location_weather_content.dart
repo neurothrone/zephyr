@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:rounded_input_button/rounded_input_button.dart';
+
 import '../../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/palette.dart';
@@ -18,8 +20,24 @@ class CustomLocationWeatherContent extends StatefulWidget {
 class _CustomLocationWeatherContentState
     extends State<CustomLocationWeatherContent> {
   final _weatherService = WeatherService();
-  LocationWeather? _myLocationWeather;
+
+  LocationWeather? _weather;
+  late final TextEditingController _controller;
+
+  String? _errorMessage;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,39 +46,53 @@ class _CustomLocationWeatherContentState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const TextField(
-            cursorColor: Palette.darkOrange,
-            decoration: InputDecoration(labelText: "City"),
+          RoundedInputButton(
+            controller: _controller,
+            onPressed: _getCurrentWeatherByCity,
+            hintText: "City",
+            buttonText: "Search",
+            buttonBackgroundColor: Palette.darkOrange,
+            focusedBorderColor: Palette.darkOrange,
           ),
-          const SizedBox(height: kPadding20),
-          ElevatedButton(
-            onPressed: _isLoading ? null : _getCurrentWeather,
-            child: const Text("Get Custom Weather"),
-          ),
-          const SizedBox(height: kPadding20),
+          const SizedBox(height: kPadding40),
           if (_isLoading) ...[
             const CustomCircularProgressIndicator()
           ] else ...[
-            if (_myLocationWeather != null)
-              LocationWeatherDisplay(weather: _myLocationWeather!)
+            if (_weather != null)
+              LocationWeatherDisplay(weather: _weather!)
+            else if (_weather == null && _errorMessage != null)
+              Center(
+                child: Text(
+                  _errorMessage!,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              )
+            else
+              const Center(
+                child: Text(
+                  "No weather yet",
+                ),
+              ),
           ],
         ],
       ),
     );
   }
 
-  Future<void> _getCurrentWeather() async {
-    _myLocationWeather = null;
+  Future<void> _getCurrentWeatherByCity() async {
+    _weather = null;
+    _errorMessage = null;
 
     setState(() => _isLoading = true);
 
-    final weather = await _weatherService.getCurrentWeather(
-      latitude: 55.61234260391604,
-      longitude: 12.980266915343263,
+    final weather = await _weatherService.getCurrentWeatherByCity(
+      city: _controller.text,
     );
 
     if (weather != null) {
-      setState(() => _myLocationWeather = weather);
+      _weather = weather;
+    } else {
+      _errorMessage = "No weather found for that city";
     }
 
     setState(() => _isLoading = false);

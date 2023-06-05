@@ -21,7 +21,7 @@ class WeatherService {
   late final String _apiKey;
 
   // Source: https://openweathermap.org/current
-  Future<http.Response> _requestCurrentWeather({
+  Future<http.Response> _requestCurrentWeatherByPosition({
     required double latitude,
     required double longitude,
   }) async {
@@ -37,8 +37,23 @@ class WeatherService {
     return response;
   }
 
+  // Source: https://openweathermap.org/current#name
+  Future<http.Response> _requestCurrentWeatherByCity({
+    required String city,
+  }) async {
+    final response = await http.get(
+      Uri.parse(
+        "$_baseUrl/weather?"
+        "q=$city&"
+        "appid=$_apiKey&"
+        "units=metric",
+      ),
+    );
+    return response;
+  }
+
   // Source: https://openweathermap.org/forecast5
-  Future<http.Response> _requestForecastWeather({
+  Future<http.Response> _requestForecastWeatherByPosition({
     required double latitude,
     required double longitude,
   }) async {
@@ -54,15 +69,7 @@ class WeatherService {
     return response;
   }
 
-  Future<LocationWeather?> getCurrentWeather({
-    required double latitude,
-    required double longitude,
-  }) async {
-    final response = await _requestCurrentWeather(
-      latitude: latitude,
-      longitude: longitude,
-    );
-
+  LocationWeather? _getCurrentWeather({required http.Response response}) {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final weather = LocationWeather.fromJson(json);
@@ -72,11 +79,31 @@ class WeatherService {
     }
   }
 
-  Future<List<ForecastWeather>> getForecastWeather({
+  Future<LocationWeather?> getCurrentWeatherByPosition({
     required double latitude,
     required double longitude,
   }) async {
-    final response = await _requestForecastWeather(
+    final response = await _requestCurrentWeatherByPosition(
+      latitude: latitude,
+      longitude: longitude,
+    );
+    return _getCurrentWeather(response: response);
+  }
+
+  Future<LocationWeather?> getCurrentWeatherByCity({
+    required String city,
+  }) async {
+    final response = await _requestCurrentWeatherByCity(
+      city: city,
+    );
+    return _getCurrentWeather(response: response);
+  }
+
+  Future<List<ForecastWeather>> getForecastWeatherByPosition({
+    required double latitude,
+    required double longitude,
+  }) async {
+    final response = await _requestForecastWeatherByPosition(
       latitude: latitude,
       longitude: longitude,
     );
