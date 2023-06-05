@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants.dart';
 import '../../../core/palette.dart';
+import '../../../core/theme.dart';
 import '../../../services/location_service.dart';
 import '../../../services/weather_service.dart';
 import '../../forecast_weather/domain/forecast_weather.dart';
@@ -17,14 +18,29 @@ class CurrentWeatherPage extends StatefulWidget {
   State<CurrentWeatherPage> createState() => _CurrentWeatherPageState();
 }
 
-class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
+class _CurrentWeatherPageState extends State<CurrentWeatherPage>
+    with SingleTickerProviderStateMixin /* Requirement of TabController */ {
+  late final TabController _tabController;
+
   final _weatherService = WeatherService();
   final _locationService = LocationService();
 
   LocationWeather? _currentWeather;
   List<ForecastWeather> _forecastList = [];
 
+  bool _isRefreshEnabled = true;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(
+      length: LocationWeatherType.values.length,
+      vsync: this,
+    );
+    _tabController.addListener(_onTabChanged);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +51,18 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           title: const Text(appTitle),
           actions: [
             IconButton(
-              onPressed: _getCurrentWeather,
-              icon: const Icon(
+              onPressed: _isRefreshEnabled ? _getCurrentWeather : null,
+              icon: Icon(
                 Icons.refresh_rounded,
-                color: Palette.darkOrange,
+                color: _isRefreshEnabled ? Palette.darkOrange : disabledColor,
               ),
               tooltip: "Refresh Weather for Current Location",
             ),
           ],
-          bottom: const CurrentWeatherPageTabBar(),
+          bottom: CurrentWeatherPageTabBar(controller: _tabController),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: [
             LocalLocationWeatherContent(
               isLoading: _isLoading,
@@ -57,6 +74,12 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         ),
       ),
     );
+  }
+
+  void _onTabChanged() {
+    if (!_tabController.indexIsChanging) return;
+
+    setState(() => _isRefreshEnabled = _tabController.index == 0);
   }
 
   Future<void> _getCurrentWeather() async {

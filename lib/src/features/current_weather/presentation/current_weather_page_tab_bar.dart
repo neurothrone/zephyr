@@ -24,7 +24,10 @@ class CurrentWeatherPageTabBar extends StatelessWidget
     implements PreferredSizeWidget {
   const CurrentWeatherPageTabBar({
     super.key,
+    required this.controller,
   });
+
+  final TabController controller;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight - 5.0);
@@ -40,6 +43,7 @@ class CurrentWeatherPageTabBar extends StatelessWidget
           ),
         ),
         child: TabBar(
+          controller: controller,
           indicatorColor: Palette.darkOrange,
           tabs: LocationWeatherType.values
               .map((tab) => Tab(
