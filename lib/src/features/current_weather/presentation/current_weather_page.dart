@@ -28,6 +28,10 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
   LocationWeather? _currentWeather;
   List<ForecastWeather> _forecastList = [];
 
+  LocationWeather? _customWeather;
+  List<ForecastWeather> _customForecastList = [];
+  String? _errorMessage;
+
   bool _isRefreshEnabled = true;
   bool _isLoading = false;
 
@@ -69,7 +73,13 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
               weather: _currentWeather,
               forecastList: _forecastList,
             ),
-            const CustomLocationWeatherContent(),
+            CustomLocationWeatherContent(
+              onSearch: _getCurrentWeatherByCity,
+              isLoading: _isLoading,
+              weather: _customWeather,
+              forecastList: _customForecastList,
+              errorMessage: _errorMessage,
+            ),
           ],
         ),
       ),
@@ -109,6 +119,31 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
       _currentWeather = newWeather;
       // Only interested in the 5 next intervals
       _forecastList = newForecastList.getRange(1, 6).toList();
+    }
+
+    setState(() => _isLoading = false);
+  }
+
+  Future<void> _getCurrentWeatherByCity(String city) async {
+    _errorMessage = null;
+    _currentWeather = null;
+    _customForecastList = [];
+
+    setState(() => _isLoading = true);
+
+    final newWeather = await _weatherService.getCurrentWeatherByCity(
+      city: city,
+    );
+    final newForecastList = await _weatherService.getForecastWeatherByCity(
+      city: city,
+    );
+
+    if (newWeather != null) {
+      _customWeather = newWeather;
+      // Only interested in the 5 next intervals
+      _customForecastList = newForecastList.getRange(1, 6).toList();
+    } else {
+      _errorMessage = "No weather found for that city";
     }
 
     setState(() => _isLoading = false);

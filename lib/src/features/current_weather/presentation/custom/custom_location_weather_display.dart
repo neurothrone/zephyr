@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
-import '../location_weather_display.dart';
+import '../shared/current_weather_display.dart';
 
 class CustomLocationWeatherDisplay extends StatelessWidget {
   const CustomLocationWeatherDisplay({
     super.key,
-    this.weather,
-    this.errorMessage,
+    required this.weather,
+    required this.forecastList,
+    required this.errorMessage,
   });
 
   final LocationWeather? weather;
+  final List<ForecastWeather> forecastList;
   final String? errorMessage;
 
   @override
@@ -18,7 +21,7 @@ class CustomLocationWeatherDisplay extends StatelessWidget {
     return Column(
       children: [
         if (weather != null)
-          LocationWeatherDisplay(weather: weather!)
+          CurrentWeatherDisplay(weather: weather!)
         else if (weather == null && errorMessage != null)
           Center(
             child: Text(
