@@ -58,8 +58,8 @@ class WeatherForecastRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(weather.datetime.formattedShort),
-            Text(weather.datetime.time),
+            Text(weather.datetime.dateFormatted),
+            Text(weather.datetime.timeFormatted),
           ],
         ),
       ],

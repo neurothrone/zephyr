@@ -36,7 +36,7 @@ class LocationForecastWeatherItem extends StatelessWidget {
     return Column(
       children: [
         Text(
-          weather.datetime.time,
+          weather.datetime.timeFormatted,
           style: const TextStyle(color: Colors.white60),
         ),
         WeatherImage(

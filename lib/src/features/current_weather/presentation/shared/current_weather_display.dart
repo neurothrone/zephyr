@@ -27,7 +27,7 @@ class CurrentWeatherDisplay extends StatelessWidget {
         ),
         const SizedBox(height: kPadding20),
         Text(
-          weather.datetime.formattedLong,
+          weather.datetime.dateAndTimeFormatted,
           style: const TextStyle(color: Colors.white60),
         ),
         const SizedBox(height: kPadding10),
