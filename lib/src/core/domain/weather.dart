@@ -1,4 +1,6 @@
-class Weather {
+/// The `base` modifier is used to lock instantiation of the [Weather]
+/// class to the public and only allow its use in subclasses
+base class Weather {
   const Weather({
     required this.temperature,
     required this.description,

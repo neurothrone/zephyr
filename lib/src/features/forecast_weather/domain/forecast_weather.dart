@@ -1,6 +1,6 @@
 import '../../../core/domain/weather.dart';
 
-class ForecastWeather extends Weather {
+final class ForecastWeather extends Weather {
   const ForecastWeather({
     required int temperature,
     required String description,
