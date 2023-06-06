@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'src/app.dart';
 import 'src/features/current_weather/data/current_custom_weather_provider.dart';
 import 'src/features/current_weather/data/current_local_weather_provider.dart';
+import 'src/features/current_weather/data/current_weather_type_provider.dart';
 import 'src/features/forecast_weather/data/forecast_weather_provider.dart';
 import 'src/services/location_service.dart';
 import 'src/services/weather_service.dart';
@@ -23,13 +24,14 @@ Future<void> main() async {
         Provider<WeatherService>(
           create: (_) => WeatherService(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => CurrentWeatherTypeProvider(),
+        ),
         ChangeNotifierProxyProvider2<LocationService, WeatherService,
             CurrentLocalWeatherProvider>(
           create: (context) {
-            final locationService =
-                Provider.of<LocationService>(context, listen: false);
-            final weatherService =
-                Provider.of<WeatherService>(context, listen: false);
+            final locationService = context.read<LocationService>();
+            final weatherService = context.read<WeatherService>();
             return CurrentLocalWeatherProvider(
               locationService: locationService,
               weatherService: weatherService,
@@ -41,10 +43,8 @@ Future<void> main() async {
         ChangeNotifierProxyProvider2<LocationService, WeatherService,
             CurrentCustomWeatherProvider>(
           create: (context) {
-            final locationService =
-                Provider.of<LocationService>(context, listen: false);
-            final weatherService =
-                Provider.of<WeatherService>(context, listen: false);
+            final locationService = context.read<LocationService>();
+            final weatherService = context.read<WeatherService>();
             return CurrentCustomWeatherProvider(
               locationService: locationService,
               weatherService: weatherService,
@@ -56,10 +56,8 @@ Future<void> main() async {
         ChangeNotifierProxyProvider2<LocationService, WeatherService,
             ForecastWeatherProvider>(
           create: (context) {
-            final locationService =
-                Provider.of<LocationService>(context, listen: false);
-            final weatherService =
-                Provider.of<WeatherService>(context, listen: false);
+            final locationService = context.read<LocationService>();
+            final weatherService = context.read<WeatherService>();
             return ForecastWeatherProvider(
                 locationService: locationService,
                 weatherService: weatherService);
