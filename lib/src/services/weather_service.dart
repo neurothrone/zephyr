@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../features/current_weather/domain/location_weather.dart';
 import '../features/forecast_weather/domain/forecast_weather.dart';
 
-const _host = "api.openweathermap.org";
+const _openWeatherMapHost = "api.openweathermap.org";
 
 enum PathEndpoint { weather, forecast }
 
@@ -27,7 +27,7 @@ class WeatherService {
     required PathEndpoint pathEndpoint,
   }) async {
     final uri = Uri.https(
-      _host,
+      _openWeatherMapHost,
       "/data/2.5/${pathEndpoint.name}",
       params
         ..addAll({
@@ -80,16 +80,6 @@ class WeatherService {
     return _processCurrentWeatherResponse(response: response);
   }
 
-  Future<LocationWeather?> getCurrentWeatherByCity({
-    required String city,
-  }) async {
-    final response = await _sendRequestToOpenWeatherMapAPI(
-      params: {"q": city},
-      pathEndpoint: PathEndpoint.weather,
-    );
-    return _processCurrentWeatherResponse(response: response);
-  }
-
   Future<List<ForecastWeather>> getForecastWeatherByPosition({
     required double latitude,
     required double longitude,
@@ -102,6 +92,16 @@ class WeatherService {
       pathEndpoint: PathEndpoint.forecast,
     );
     return _processForecastWeatherResponse(response: response);
+  }
+
+  Future<LocationWeather?> getCurrentWeatherByCity({
+    required String city,
+  }) async {
+    final response = await _sendRequestToOpenWeatherMapAPI(
+      params: {"q": city},
+      pathEndpoint: PathEndpoint.weather,
+    );
+    return _processCurrentWeatherResponse(response: response);
   }
 
   Future<List<ForecastWeather>> getForecastWeatherByCity({
