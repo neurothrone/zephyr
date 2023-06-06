@@ -19,6 +19,16 @@ class WeatherImage extends StatelessWidget {
       width: width,
       height: height,
       semanticLabel: "Visual weather description",
+      frameBuilder: (_, child, int? frame, bool wasSynchronouslyLoaded) {
+        if (wasSynchronouslyLoaded) return child;
+
+        return AnimatedOpacity(
+          opacity: frame == null ? 0 : 1,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.linear,
+          child: child,
+        );
+      },
     );
   }
 }
