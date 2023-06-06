@@ -32,14 +32,3 @@ class LocationWeather {
   final String icon;
   final DateTime datetime;
 }
-
-final fakeLocationWeather = LocationWeather(
-  latitude: 50.0,
-  longitude: 50.0,
-  description: "Clear sky",
-  temperature: 17,
-  city: "Malmo",
-  country: "SE",
-  icon: "04d",
-  datetime: DateTime.now(),
-);
