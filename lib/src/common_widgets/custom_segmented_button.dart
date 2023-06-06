@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../features/current_weather/presentation/current_weather_page_tab_bar.dart';
+import '../features/current_weather/presentation/current_weather_type.dart';
 
 class CustomSegmentedButton extends StatefulWidget {
   const CustomSegmentedButton({
@@ -8,19 +8,19 @@ class CustomSegmentedButton extends StatefulWidget {
     required this.onSelectionChanged,
   });
 
-  final Function(LocationWeatherType type) onSelectionChanged;
+  final Function(CurrentWeatherType type) onSelectionChanged;
 
   @override
   State<CustomSegmentedButton> createState() => _CustomSegmentedButtonState();
 }
 
 class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
-  LocationWeatherType _locationType = LocationWeatherType.local;
+  CurrentWeatherType _locationType = CurrentWeatherType.local;
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton<LocationWeatherType>(
-      segments: LocationWeatherType.values
+    return SegmentedButton<CurrentWeatherType>(
+      segments: CurrentWeatherType.values
           .map(
             (type) => ButtonSegment(
               value: type,
@@ -29,8 +29,8 @@ class _CustomSegmentedButtonState extends State<CustomSegmentedButton> {
             ),
           )
           .toList(),
-      selected: <LocationWeatherType>{_locationType},
-      onSelectionChanged: (Set<LocationWeatherType> newSelection) {
+      selected: <CurrentWeatherType>{_locationType},
+      onSelectionChanged: (Set<CurrentWeatherType> newSelection) {
         setState(() => _locationType = newSelection.first);
         widget.onSelectionChanged(_locationType);
       },
