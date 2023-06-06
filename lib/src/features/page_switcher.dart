@@ -25,9 +25,30 @@ class _PageSwitcherState extends State<PageSwitcher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedTab,
-        children: _pages,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: Tween(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: const Interval(
+                  0.3,
+                  1.0,
+                  curve: Curves.fastOutSlowIn,
+                ),
+              ),
+            ),
+            child: child,
+          );
+        },
+        child: IndexedStack(
+          // The key will help AnimatedSwitcher animate between the old
+          // and the new widget when changing tabs
+          key: ValueKey<int>(_selectedTab),
+          index: _selectedTab,
+          children: _pages,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onTabTapped,
