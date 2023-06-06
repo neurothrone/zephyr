@@ -1,22 +1,25 @@
-class ForecastWeather {
+import '../../../core/domain/weather.dart';
+
+class ForecastWeather extends Weather {
   const ForecastWeather({
-    required this.temperature,
-    required this.description,
-    required this.icon,
-    required this.datetime,
-  });
+    required int temperature,
+    required String description,
+    required String icon,
+    required DateTime datetime,
+  }) : super(
+          temperature: temperature,
+          description: description,
+          icon: icon,
+          datetime: datetime,
+        );
 
   factory ForecastWeather.fromJson(Map<String, dynamic> json) {
+    Weather baseWeather = Weather.fromJson(json);
     return ForecastWeather(
-      temperature: (json["main"]["temp"] as num).toInt(),
-      description: json["weather"][0]["description"],
-      icon: json["weather"][0]["icon"],
-      datetime: DateTime.fromMillisecondsSinceEpoch(json["dt"] * 1000),
+      temperature: baseWeather.temperature,
+      description: baseWeather.description,
+      icon: baseWeather.icon,
+      datetime: baseWeather.datetime,
     );
   }
-
-  final int temperature;
-  final String description;
-  final String icon;
-  final DateTime datetime;
 }

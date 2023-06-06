@@ -1,34 +1,32 @@
-class LocationWeather {
+import '../../../core/domain/weather.dart';
+
+class LocationWeather extends Weather {
   const LocationWeather({
-    required this.latitude,
-    required this.longitude,
-    required this.description,
-    required this.temperature,
-    required this.city,
+    required int temperature,
+    required String description,
+    required String icon,
+    required DateTime datetime,
     required this.country,
-    required this.icon,
-    required this.datetime,
-  });
+    required this.city,
+  }) : super(
+          temperature: temperature,
+          description: description,
+          icon: icon,
+          datetime: datetime,
+        );
 
   factory LocationWeather.fromJson(Map<String, dynamic> json) {
+    Weather baseWeather = Weather.fromJson(json);
     return LocationWeather(
-      latitude: json["coord"]["lat"],
-      longitude: json["coord"]["lon"],
-      description: json["weather"][0]["description"],
-      temperature: (json["main"]["temp"] as num).toInt(),
-      city: json["name"],
+      temperature: baseWeather.temperature,
+      description: baseWeather.description,
+      icon: baseWeather.icon,
+      datetime: baseWeather.datetime,
       country: json["sys"]["country"],
-      icon: json["weather"][0]["icon"],
-      datetime: DateTime.fromMillisecondsSinceEpoch(json["dt"] * 1000),
+      city: json["name"],
     );
   }
 
-  final double latitude;
-  final double longitude;
-  final String description;
-  final int temperature;
-  final String city;
   final String country;
-  final String icon;
-  final DateTime datetime;
+  final String city;
 }
