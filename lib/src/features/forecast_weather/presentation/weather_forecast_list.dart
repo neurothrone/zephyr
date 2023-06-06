@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
 
 import '../../../common_widgets/weather_image.dart';
+import '../../../core/constants.dart';
 import '../../../utils/datetime_extensions.dart';
 import '../../../utils/string_extensions.dart';
 import '../domain/forecast_weather.dart';
+
+class ForecastWeatherList extends StatelessWidget {
+  const ForecastWeatherList({
+    Key? key,
+    required this.forecastList,
+  }) : super(key: key);
+
+  final List<ForecastWeather> forecastList;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: const EdgeInsets.only(left: kPadding10, right: kPadding20),
+      itemCount: forecastList.length,
+      itemBuilder: (_, index) {
+        return WeatherForecastRow(weather: forecastList[index]);
+      },
+      separatorBuilder: (_, __) => const Padding(
+        padding: EdgeInsets.only(left: kPadding10),
+        child: Divider(color: Colors.white60),
+      ),
+    );
+  }
+}
 
 class WeatherForecastRow extends StatelessWidget {
   const WeatherForecastRow({
