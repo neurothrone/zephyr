@@ -36,8 +36,8 @@ class LocationForecastWeatherItem extends StatelessWidget {
     return Column(
       children: [
         Text(
-          weather.datetime.timeFormatted,
-          style: const TextStyle(color: Colors.white60),
+          "${weather.temperature} °C",
+          style: const TextStyle(),
         ),
         WeatherImage(
           iconName: weather.icon,
@@ -45,8 +45,8 @@ class LocationForecastWeatherItem extends StatelessWidget {
           height: 40.0,
         ),
         Text(
-          "${weather.temperature} °C",
-          style: const TextStyle(),
+          weather.datetime.timeFormatted,
+          style: const TextStyle(color: Colors.white60),
         ),
       ],
     );
