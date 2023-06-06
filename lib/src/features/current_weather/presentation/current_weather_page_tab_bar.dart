@@ -2,23 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants.dart';
 import '../../../core/palette.dart';
-
-enum LocationWeatherType {
-  local,
-  custom,
-}
-
-extension UI on LocationWeatherType {
-  IconData get icon => switch (this) {
-        LocationWeatherType.local => Icons.home_rounded,
-        LocationWeatherType.custom => Icons.pin_drop_rounded,
-      };
-
-  String get label => switch (this) {
-        LocationWeatherType.local => "Current Location",
-        LocationWeatherType.custom => "Custom Location",
-      };
-}
+import 'current_weather_type.dart';
 
 class CurrentWeatherPageTabBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -45,7 +29,7 @@ class CurrentWeatherPageTabBar extends StatelessWidget
         child: TabBar(
           controller: controller,
           indicatorColor: Palette.darkOrange,
-          tabs: LocationWeatherType.values
+          tabs: CurrentWeatherType.values
               .map((tab) => Tab(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

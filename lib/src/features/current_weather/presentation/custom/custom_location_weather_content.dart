@@ -7,7 +7,7 @@ import '../../../../core/constants.dart';
 import '../../../../core/palette.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
-import '../shared/full_weather_display.dart';
+import '../shared/complete_weather_display.dart';
 
 class CustomLocationWeatherContent extends StatelessWidget {
   const CustomLocationWeatherContent({
@@ -57,7 +57,7 @@ class CustomLocationWeatherContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               if (weather != null)
-                                FullWeatherDisplay(
+                                CompleteWeatherDisplay(
                                   weather: weather!,
                                   forecastList: forecastList,
                                 )
@@ -82,7 +82,7 @@ class CustomLocationWeatherContent extends StatelessWidget {
                         ),
                         const SizedBox(height: kPadding20),
                         if (weather != null)
-                          FullWeatherDisplay(
+                          CompleteWeatherDisplay(
                             weather: weather!,
                             forecastList: forecastList,
                           )

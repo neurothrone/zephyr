@@ -4,7 +4,7 @@ import '../../../../common_widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
-import '../shared/full_weather_display.dart';
+import '../shared/complete_weather_display.dart';
 
 class LocalLocationWeatherContent extends StatelessWidget {
   const LocalLocationWeatherContent({
@@ -40,7 +40,7 @@ class LocalLocationWeatherContent extends StatelessWidget {
                     constraints:
                         BoxConstraints(minHeight: constraints.maxHeight),
                     child: Center(
-                      child: FullWeatherDisplay(
+                      child: CompleteWeatherDisplay(
                         weather: weather!,
                         forecastList: forecastList,
                       ),

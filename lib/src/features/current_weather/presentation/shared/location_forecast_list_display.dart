@@ -4,8 +4,8 @@ import '../../../../common_widgets/weather_image.dart';
 import '../../../../utils/datetime_extensions.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 
-class LocationForecastWeatherDisplay extends StatelessWidget {
-  const LocationForecastWeatherDisplay({
+class LocationForecastListDisplay extends StatelessWidget {
+  const LocationForecastListDisplay({
     super.key,
     required this.forecastList,
   });
