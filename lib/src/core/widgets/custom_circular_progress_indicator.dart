@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/palette.dart';
+import '../theme/palette.dart';
 
 class CustomCircularProgressIndicator extends StatelessWidget {
   const CustomCircularProgressIndicator({

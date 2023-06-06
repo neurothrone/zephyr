@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../features/current_weather/presentation/current_weather_type.dart';
+import '../../features/current_weather/presentation/current_weather_type.dart';
 
 class CustomSegmentedButton extends StatefulWidget {
   const CustomSegmentedButton({

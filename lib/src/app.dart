@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'core/constants.dart';
-import 'core/palette.dart';
-import 'core/theme.dart';
+import 'core/theme/palette.dart';
+import 'core/theme/theme.dart';
 import 'features/page_switcher.dart';
 
 class MainApp extends StatelessWidget {

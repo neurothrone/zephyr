@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/weather_image.dart';
+import '../../../../core/widgets/weather_image.dart';
 import '../../../../core/constants.dart';
 import '../../../../utils/datetime_extensions.dart';
 import '../../../../utils/string_extensions.dart';

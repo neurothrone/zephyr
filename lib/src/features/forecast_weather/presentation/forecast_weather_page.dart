@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import '../../../common_widgets/custom_circular_progress_indicator.dart';
-import '../../../common_widgets/refresh_icon_button.dart';
+import '../../../core/widgets/custom_circular_progress_indicator.dart';
+import '../../../core/widgets/refresh_icon_button.dart';
 import '../../../core/constants.dart';
 import '../data/forecast_weather_provider.dart';
 import 'weather_forecast_list.dart';

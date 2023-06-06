@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:rounded_input_button/rounded_input_button.dart';
 
-import '../../../../common_widgets/custom_circular_progress_indicator.dart';
+import '../../../../core/widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
-import '../../../../core/palette.dart';
+import '../../../../core/theme/palette.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';
 import '../shared/complete_weather_display.dart';

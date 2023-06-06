@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common_widgets/custom_circular_progress_indicator.dart';
+import '../../../../core/widgets/custom_circular_progress_indicator.dart';
 import '../../../../core/constants.dart';
 import '../../../forecast_weather/domain/forecast_weather.dart';
 import '../../domain/location_weather.dart';

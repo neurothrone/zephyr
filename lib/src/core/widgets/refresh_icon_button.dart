@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/palette.dart';
-import '../core/theme.dart';
+import '../theme/palette.dart';
+import '../theme/theme.dart';
 
 class RefreshIconButton extends StatelessWidget {
   const RefreshIconButton({

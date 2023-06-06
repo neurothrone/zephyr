@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants.dart';
-import '../../../core/palette.dart';
+import '../../../core/theme/palette.dart';
 import 'current_weather_type.dart';
 
 class CurrentWeatherPageTabBar extends StatelessWidget
