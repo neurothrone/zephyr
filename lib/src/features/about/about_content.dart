@@ -40,7 +40,7 @@ class AboutContentColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
-          "Project Weather App",
+          "Project Zephyr",
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,

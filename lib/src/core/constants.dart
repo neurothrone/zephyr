@@ -1,4 +1,4 @@
-const appTitle = "Weather App";
+const appTitle = "Zephyr";
 
 const kPadding0 = 0.0;
 const kPadding10 = 10.0;
