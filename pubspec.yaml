@@ -15,6 +15,7 @@ dependencies:
   geolocator: ^9.0.2
   permission_handler: ^10.2.0
   provider: ^6.0.5
+  package_info_plus: ^4.0.2
 
   rounded_input_button:
     git:
