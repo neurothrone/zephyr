@@ -35,8 +35,13 @@ class WeatherService {
           "units": "metric",
         }),
     );
-    final response = await http.get(uri);
-    return response;
+    return await http
+        .get(uri)
+        .timeout(
+          const Duration(seconds: 3),
+        )
+        .then((response) => response)
+        .catchError((error) => http.Response("", 400));
   }
 
   LocationWeather? _processCurrentWeatherResponse({
