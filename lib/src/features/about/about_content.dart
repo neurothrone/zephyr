@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants.dart';
 import '../../core/theme/palette.dart';
+import 'app_version.dart';
 
 class AboutContent extends StatelessWidget {
   const AboutContent({super.key});
@@ -71,6 +72,8 @@ class AboutContentColumn extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: kPadding20),
+        const AppVersion(),
         const SizedBox(height: kPadding20),
         // Source: https://www.svgrepo.com/svg/484984/weather
         const Text(
