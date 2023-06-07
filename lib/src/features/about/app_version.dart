@@ -34,7 +34,10 @@ class _AppVersionState extends State<AppVersion> {
     return _isLoading
         ? const CustomCircularProgressIndicator()
         : _version != null
-            ? Text("App version: $_version")
+            ? Text(
+                "App version: $_version",
+                style: const TextStyle(color: Colors.white60),
+              )
             : const Text(
                 "Failed to load app version.",
                 style: TextStyle(color: Colors.red),
