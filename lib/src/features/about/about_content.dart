@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/constants.dart';
+import '../../core/theme/palette.dart';
 
 class AboutContent extends StatelessWidget {
   const AboutContent({super.key});
@@ -38,10 +39,11 @@ class AboutContentColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
-          "Project Weather",
+          "Project Weather App",
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
+            color: Palette.lightBlue,
           ),
         ),
         const SizedBox(height: kPadding20),
@@ -54,8 +56,27 @@ class AboutContentColumn extends StatelessWidget {
             "Linneaus University using Flutter and the OpenWeatherMap API.",
           ),
         ),
-        const SizedBox(height: kPadding10),
-        const Text("Developed by Zaid Neurothrone"),
+        const SizedBox(height: kPadding20),
+        RichText(
+          text: const TextSpan(
+            children: [
+              TextSpan(text: "Developed by "),
+              TextSpan(
+                text: "Zaid Neurothrone",
+                style: TextStyle(
+                  color: Palette.lightBlue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: kPadding20),
+        // Source: https://www.svgrepo.com/svg/484984/weather
+        const Text(
+          "The app icon was sourced from svgrepo.",
+          style: TextStyle(color: Colors.white60),
+        ),
       ],
     );
   }
