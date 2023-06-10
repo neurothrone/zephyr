@@ -25,7 +25,10 @@ class ForecastWeatherPage extends StatelessWidget {
           ),
         ],
       ),
-      body: const ForecastWeatherContent(),
+      body: const SafeArea(
+        minimum: EdgeInsets.symmetric(horizontal: kPadding20),
+        child: ForecastWeatherContent(),
+      ),
     );
   }
 }

@@ -63,12 +63,15 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
           ],
           bottom: CurrentWeatherPageTabBar(controller: _tabController),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: const [
-            LocalLocationWeatherTabView(),
-            CustomLocationWeatherTabView(),
-          ],
+        body: SafeArea(
+          minimum: const EdgeInsets.symmetric(horizontal: kPadding20),
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              LocalLocationWeatherTabView(),
+              CustomLocationWeatherTabView(),
+            ],
+          ),
         ),
       ),
     );
