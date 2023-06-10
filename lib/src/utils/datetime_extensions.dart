@@ -6,5 +6,5 @@ extension StringFormat on DateTime {
   String get dateAndTimeFormatted =>
       DateFormat("EEE, MMM d, y - hh:mm a").format(this);
 
-  String get timeFormatted => DateFormat("hh:mm a").format(this);
+  String get timeFormatted => DateFormat("HH:mm").format(this);
 }
