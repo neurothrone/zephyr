@@ -15,7 +15,7 @@ class ForecastWeatherProvider extends WeatherProvider {
 
   bool get isLoading => _isLoading;
 
-  Future<void> getForecastsForCurrentLocation() async {
+  Future<bool> getForecastsForCurrentLocation() async {
     _isLoading = true;
     notifyListeners();
 
@@ -24,7 +24,7 @@ class ForecastWeatherProvider extends WeatherProvider {
       _isLoading = false;
       notifyListeners();
       // TODO: show alert
-      return;
+      return false;
     }
 
     final newForecastList = await weatherService.getForecastWeatherByPosition(
@@ -35,5 +35,6 @@ class ForecastWeatherProvider extends WeatherProvider {
 
     _isLoading = false;
     notifyListeners();
+    return true;
   }
 }

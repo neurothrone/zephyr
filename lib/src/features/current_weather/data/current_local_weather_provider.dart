@@ -18,7 +18,7 @@ class CurrentLocalWeatherProvider extends WeatherProvider {
 
   bool get isLoading => _isLoading;
 
-  Future<void> getCurrentWeather() async {
+  Future<bool> getCurrentWeather() async {
     _weather = null;
     _forecastList = [];
 
@@ -28,10 +28,9 @@ class CurrentLocalWeatherProvider extends WeatherProvider {
     final position = await locationService.getCurrentLocation();
 
     if (position == null) {
-      // TODO: show alert: location permission is required
       _isLoading = false;
       notifyListeners();
-      return;
+      return false;
     }
 
     final newWeather = await weatherService.getCurrentWeatherByPosition(
@@ -51,5 +50,6 @@ class CurrentLocalWeatherProvider extends WeatherProvider {
 
     _isLoading = false;
     notifyListeners();
+    return true;
   }
 }

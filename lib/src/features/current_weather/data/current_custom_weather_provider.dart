@@ -21,7 +21,7 @@ class CurrentCustomWeatherProvider extends WeatherProvider {
 
   bool get isLoading => _isLoading;
 
-  Future<void> getCurrentWeatherByCity(String city) async {
+  Future<bool> getCurrentWeatherByCity(String city) async {
     _errorMessage = null;
     _weather = null;
     _forecastList = [];
@@ -46,5 +46,6 @@ class CurrentCustomWeatherProvider extends WeatherProvider {
 
     _isLoading = false;
     notifyListeners();
+    return _errorMessage == null;
   }
 }
