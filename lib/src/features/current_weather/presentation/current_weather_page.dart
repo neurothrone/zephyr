@@ -10,6 +10,7 @@ import 'current_weather_page_tab_bar.dart';
 import 'current_weather_type.dart';
 import 'custom/custom_location_weather_tab_view.dart';
 import 'local/local_location_weather_tab_view.dart';
+import 'shared/location_alert_dialog.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
   const CurrentWeatherPage({super.key});
@@ -54,9 +55,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
                           .watch<CurrentWeatherTypeProvider>()
                           .currentWeatherType ==
                       CurrentWeatherType.local
-                  ? context
-                      .read<CurrentLocalWeatherProvider>()
-                      .getCurrentWeather
+                  ? () => _getLocalWeather(context)
                   : null,
               tooltip: "Refresh Weather for Current Location",
             ),
@@ -75,6 +74,17 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage>
         ),
       ),
     );
+  }
+
+  Future<void> _getLocalWeather(BuildContext context) async {
+    final provider = context.read<CurrentLocalWeatherProvider>();
+    final wasSuccessful = await provider.getCurrentWeather();
+
+    if (wasSuccessful) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showLocationAlertDialog(context);
+    });
   }
 
   void _setStartingTab() {

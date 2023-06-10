@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../core/widgets/custom_circular_progress_indicator.dart';
 import '../../../core/widgets/refresh_icon_button.dart';
 import '../../../core/constants.dart';
+import '../../current_weather/presentation/shared/location_alert_dialog.dart';
 import '../data/forecast_weather_provider.dart';
 import 'weather_forecast_list.dart';
 
@@ -18,9 +19,7 @@ class ForecastWeatherPage extends StatelessWidget {
         title: const Text(appTitle),
         actions: [
           RefreshIconButton(
-            onPressed: context
-                .read<ForecastWeatherProvider>()
-                .getForecastsForCurrentLocation,
+            onPressed: () => _refreshWeatherForCurrentLocation(context),
             tooltip: "Refresh Forecast Weather for Current Location",
           ),
         ],
@@ -30,6 +29,17 @@ class ForecastWeatherPage extends StatelessWidget {
         child: ForecastWeatherContent(),
       ),
     );
+  }
+
+  Future<void> _refreshWeatherForCurrentLocation(BuildContext context) async {
+    final provider = context.read<ForecastWeatherProvider>();
+    final wasSuccessful = await provider.getForecastsForCurrentLocation();
+
+    if (wasSuccessful) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      showLocationAlertDialog(context);
+    });
   }
 }
 
