@@ -17,7 +17,7 @@ class ForecastWeatherList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.only(left: kPadding10, right: kPadding20),
+      padding: const EdgeInsets.only(right: kPadding20),
       itemCount: forecastList.length,
       itemBuilder: (_, index) {
         return WeatherForecastRow(weather: forecastList[index]);
