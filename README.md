@@ -1,6 +1,6 @@
-# Weather App
+# Zephy
 
-The final project of the LNU course 1DV535.
+A weather app that uses the OpenWeatherMap API.
 
 ## Setup
 
